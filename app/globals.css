@@ -1,7 +1,12 @@
 @import "tailwindcss";
 
-body{
-  box-sizing: border-box;
+html, body {
+  overflow-x: hidden; /* Prevents horizontal scroll */
+  width: 100%; /* Ensures full width without overflow */
   margin: 0;
   padding: 0;
+}
+
+* {
+  box-sizing: border-box; /* Helps with responsive layouts */
 }
