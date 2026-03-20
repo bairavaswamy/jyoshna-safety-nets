@@ -211,7 +211,7 @@ const Navbar = () => {
 
       {/* NAVBAR */}
 
-      <div className="fixed top-0 left-0 w-full z-50 flex justify-center pt-6">
+      <div className="fixed top-4 left-0 w-full z-[666] flex justify-center ">
         <header
           className={`w-[95%] lg:w-[1200px] rounded-2xl border border-white/10 transition-all
           ${

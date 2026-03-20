@@ -1,19 +1,37 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
 export default function About() {
   return (
-    <section className="relative max-w-[1200px] mx-auto py-24 px-6">
+    <section className="relative max-w-[1200px] mx-auto py-24 px-6 overflow-hidden">
+
+      {/* BACKGROUND IMAGE */}
+      {/* BACKGROUND IMAGE (TEST VERSION) */}
+<div className="absolute inset-0 ">
+  <img
+    src="https://eversafesafetynets.com/service/balcony-5.webp"
+    alt="background"
+    className="w-full h-full object-cover opacity-20"
+  />
+</div>
+
+{/* overlay */}
+{/* <div className="absolute inset-0 -z-10 bg-white/20" /> */}
+
+      {/* LIGHT OVERLAY (balanced) */}
+      {/* <div className="absolute inset-0 -z-10 bg-white/10 backdrop-blur-sm" /> */}
 
       {/* decorative background */}
-      <div
+      {/* <div
         aria-hidden
         className="pointer-events-none absolute -top-20 -left-20 w-72 h-72 bg-yellow-400/10 rounded-full blur-3xl"
       />
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-20 -right-20 w-72 h-72 bg-orange-400/10 rounded-full blur-3xl"
-      />
+      /> */}
 
       <div className="grid md:grid-cols-3 gap-12 items-center">
 
@@ -22,7 +40,7 @@ export default function About() {
 
           <div className="w-48 h-48 rounded-full overflow-hidden shadow-2xl border-[6px] border-white">
             <Image
-              src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=800"
+              src="https://eversafesafetynets.com/service/balcony-5.webp"
               alt="Balcony invisible grill installation"
               width={240}
               height={240}
@@ -54,7 +72,6 @@ export default function About() {
         <div className="relative h-[380px] group">
 
           <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
-
             <Image
               src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1400"
               alt="Luxury balcony protected with invisible grills"
@@ -62,11 +79,9 @@ export default function About() {
               sizes="(max-width:768px) 100vw, 400px"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
-
           </div>
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent rounded-2xl" />
-
         </div>
 
         {/* CONTENT */}
@@ -118,7 +133,6 @@ export default function About() {
             href="/about"
             className="group relative inline-flex items-center gap-2 px-8 py-3 rounded-full bg-black text-white font-semibold overflow-hidden"
           >
-
             <span className="relative z-10 flex items-center gap-2">
               Learn More
               <span className="transition-transform group-hover:translate-x-1">
@@ -127,7 +141,6 @@ export default function About() {
             </span>
 
             <span className="absolute inset-0 bg-yellow-500/20 opacity-0 group-hover:opacity-100 transition" />
-
           </Link>
 
         </article>

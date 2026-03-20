@@ -9,7 +9,7 @@ import GA from "./components/analytics/GoogleAnalytics";
 import Clarity from "./components/analytics/Clarity";
 import PageTracker from "./components/analytics/PageTracker";
 
-import NewsletterPopup from "./components/NewsletterPopup";
+// import NewsletterPopup from "./components/NewsletterPopup";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -82,7 +82,7 @@ export default function RootLayout({
             {children}
 
             {/* Lead capture */}
-            <NewsletterPopup />
+            {/* <NewsletterPopup /> */}
 
           </AnalyticsProvider>
 
