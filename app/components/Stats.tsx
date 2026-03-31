@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 const stats = [
   { number: 10, label: "Years Experience" },
@@ -16,18 +15,32 @@ export default function Stats() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
-  // Animate numbers on scroll
+  const sectionRef = useRef(null);
+
+  // Parallax scroll
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const yParallax = useTransform(scrollYProgress, [0, 1], [80, -80]);
+
+  // Count animation (same logic)
   useEffect(() => {
     if (!isInView) return;
+
     const intervals = stats.map((stat, i) => {
-      const increment = stat.number / 50; // Smooth increment
+      const increment = stat.number / 50;
       let current = 0;
+
       return setInterval(() => {
         current += increment;
+
         if (current >= stat.number) {
           current = stat.number;
           clearInterval(intervals[i]);
         }
+
         setCounts((prev) => {
           const newCounts = [...prev];
           newCounts[i] = Math.floor(current);
@@ -35,46 +48,117 @@ export default function Stats() {
         });
       }, 30);
     });
+
     return () => intervals.forEach(clearInterval);
   }, [isInView]);
 
   return (
-    <section className="bg-gray-800 dark:bg-gray-900 text-white py-12 sm:py-16 relative overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-indigo-500/10 via-transparent to-yellow-400/10 blur-3xl" />
+    <section
+      ref={sectionRef}
+      className="relative py-20 bg-black text-white overflow-hidden"
+    >
+      {/* Dynamic Background */}
+      <motion.div
+        style={{ y: yParallax }}
+        className="absolute inset-0 -z-10"
+      >
+        <div
+          className="w-full h-full"
+          style={{
+            background: `
+              radial-gradient(circle at 20% 30%, rgba(250,204,21,0.15), transparent 40%),
+              radial-gradient(circle at 80% 70%, rgba(255,255,255,0.06), transparent 50%),
+              linear-gradient(to bottom, #000000, #050505)
+            `,
+          }}
+        />
+      </motion.div>
+
+      {/* Heading */}
+      <div className="text-center mb-14 px-6">
+        <p className="uppercase tracking-[4px] text-yellow-400 text-sm">
+          TRUST & PERFORMANCE
+        </p>
+
+        <h2 className="text-3xl md:text-5xl font-bold mt-3">
+          Proven Results That
+          <br />
+          <span className="text-yellow-400">Build Confidence</span>
+        </h2>
+
+        <p className="text-white/60 mt-4 max-w-xl mx-auto">
+          Our track record speaks for itself — delivering safety,
+          reliability, and trust across thousands of homes.
+        </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-center gap-6 sm:gap-8"
-        >
-          {stats.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="bg-white/5 dark:bg-gray-800/50 backdrop-blur-sm border border-white/10 dark:border-gray-700 rounded-xl p-4 sm:p-6 hover:bg-white/10 dark:hover:bg-gray-700/50 transition-all duration-300 hover:scale-105 shadow-lg"
+      {/* Stats Grid */}
+      <motion.div
+        ref={ref}
+        className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 px-6"
+      >
+        {stats.map((item, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.15 }}
+            className="relative group rounded-2xl p-6 text-center"
+            style={{
+              background: "rgba(15,15,15,0.85)",
+              backdropFilter: "blur(18px)",
+              border: "1px solid rgba(250,204,21,0.25)",
+              boxShadow: "0 20px 50px rgba(0,0,0,0.7)",
+            }}
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const x = (e.clientX - rect.left) / rect.width - 0.5;
+              const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+              e.currentTarget.style.transform = `
+                rotateY(${x * 10}deg)
+                rotateX(${y * -10}deg)
+                scale(1.05)
+              `;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform =
+                "rotateY(0deg) rotateX(0deg) scale(1)";
+            }}
+          >
+            {/* Glow */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 pointer-events-none">
+              <div
+                className="w-full h-full"
+                style={{
+                  background:
+                    "radial-gradient(circle at center, rgba(250,204,21,0.2), transparent 70%)",
+                }}
+              />
+            </div>
+
+            {/* Number */}
+            <motion.h3
+              className="text-3xl md:text-4xl font-bold text-yellow-400"
+              animate={{
+                textShadow: "0 0 18px rgba(250,204,21,0.6)",
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
             >
-              <motion.h3
-                className="text-yellow-400 text-3xl sm:text-4xl font-bold mb-2"
-                animate={{ textShadow: "0 0 10px rgba(255, 193, 7, 0.5)" }}
-                transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-              >
-                {counts[i]}+
-              </motion.h3>
-              <p className="text-xs sm:text-sm text-gray-300 dark:text-gray-400 uppercase tracking-wide">
-                {item.label}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
+              {counts[i]}+
+            </motion.h3>
+
+            {/* Label */}
+            <p className="text-xs md:text-sm text-white/60 mt-2 tracking-wide uppercase">
+              {item.label}
+            </p>
+          </motion.div>
+        ))}
+      </motion.div>
     </section>
   );
 }

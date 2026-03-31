@@ -153,10 +153,10 @@ export default function MenuClient({ open, onClose }: Props) {
       navigator.userAgent
     );
 
-    if (!isMobile) {
-      const t = setTimeout(() => inputRef.current?.focus(), 150);
-      return () => clearTimeout(t);
-    }
+    // if (!isMobile) {
+    //   const t = setTimeout(() => inputRef.current?.focus(), 150);
+    //   return () => clearTimeout(t);
+    // }
   }, [open]);
 
   return (
@@ -249,7 +249,7 @@ export default function MenuClient({ open, onClose }: Props) {
               {[
                 { name: "Home", href: "/" },
                 { name: "Projects", href: "/projects" },
-                { name: "Blog", href: "/blog" },
+                { name: "About", href: "/about" },
                 { name: "Contact", href: "/contact" },
               ].map((item) => {
                 const active = pathname === item.href;

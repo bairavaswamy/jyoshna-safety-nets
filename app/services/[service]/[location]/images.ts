@@ -15,13 +15,13 @@ export const images: SportsImages= {
   ],
 
   "balcony-safety-nets": [
-    "/images/balcony-safety-nets-for-balcony.webp",
-    "/images/balcony-safety-nets-installation.webp",
-    "/images/balcony-safety-nets-for-home.webp",
-    "/images/balcony-safety-nets-child-safety.webp",
-    "/images/balcony-safety-nets-apartment.webp",
-    "/images/balcony-safety-nets-protection.webp",
-    "/images/balcony-safety-nets-secure.webp",
+    "/balcony-1.webp",
+    "/balcony-5.webp",
+    "/balcony-6.webp",
+    "/balcony-7.webp",
+    "/balcony-9.webp",
+    // "/images/balcony-safety-nets-protection.webp",
+    // "/images/balcony-safety-nets-secure.webp",
   ],
 
   "pigeon-safety-nets": [

@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import { ThemeProvider } from "./components/ThemeProvider";
 import { AnalyticsProvider } from "./components/AnalyticsProvider";
 
 import GA from "./components/analytics/GoogleAnalytics";
@@ -71,9 +70,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
-
-        <ThemeProvider>
-
           <AnalyticsProvider>
 
             {/* Page analytics tracking */}
@@ -85,8 +81,6 @@ export default function RootLayout({
             {/* <NewsletterPopup /> */}
 
           </AnalyticsProvider>
-
-        </ThemeProvider>
 
         {/* Analytics scripts load AFTER page interactive */}
         <GA />

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function PremiumCTA() {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -25,6 +25,8 @@ export default function PremiumCTA() {
       buttonRef.current.style.transform = "translate(0px,0px)";
     }
   };
+
+  useEffect(() => () => setRipples([]), []);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const rect = buttonRef.current!.getBoundingClientRect();

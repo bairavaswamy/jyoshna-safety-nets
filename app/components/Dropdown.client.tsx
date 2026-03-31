@@ -7,6 +7,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
+
+const slugToTitle = (slug: string) => {
+  return slug
+    .split("-")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 export default function DropdownClient() {
 
   const [open, setOpen] = useState(false);
@@ -84,22 +92,22 @@ export default function DropdownClient() {
             {services.map((service) => (
 
               <div
-                key={service.slug}
-                onMouseEnter={() => setActiveService(service.slug)}
+                key={slugToTitle(service)}
+                onMouseEnter={() => setActiveService(service)}
                 className="relative"
               >
 
                 <Link
-                  href={`/services/${service.slug}`}
+                  href={`/services/${service}`}
                   className="block px-5 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
                 >
-                  {service.title}
+                  {slugToTitle(service)}
                 </Link>
 
                 {/* submenu */}
                 <AnimatePresence>
 
-                  {activeService === service.slug && (
+                  {activeService === service && (
 
                     <motion.div
                       initial={{ opacity: 0, x: -10 }}
@@ -116,11 +124,11 @@ export default function DropdownClient() {
                       {locations.map((location) => (
 
                         <Link
-                          key={`${service.slug}-${location}`}
-                          href={`/services/${service.slug}/${location}`}
+                          key={`${slugToTitle(service)}-${location}`}
+                          href={`/services/${service}/${location}`}
                           className="block px-5 py-3 text-sm hover:bg-orange-50 dark:hover:bg-gray-700 transition"
                         >
-                          {service.title} in {location}
+                          {slugToTitle(service)} in {slugToTitle(location)}
                         </Link>
 
                       ))}
