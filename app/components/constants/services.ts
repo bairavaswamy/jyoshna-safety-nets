@@ -55,7 +55,6 @@ export const services:string[] = [
   "duct-area-safety-nets",
   "safety-net-installation",
   "windows-safety-nets",
-  "balcon-safety-nets",
   "monkey-safety-nets",
   "sports-nets",
   "children-safety-nets",

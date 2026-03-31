@@ -1,12 +1,12 @@
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import HeroCarousel from "./components/HeroCarousel";
 import About from "./components/About";
 import Services from "./components/Services";
 import Projects from "./components/Projects";
 import Stats from "./components/Stats";
 import Testimonials from "./components/Testimonials";
-import Footer from "./components/Footer";
-import PreviewCarousel from "./components/HeroCards";
+import ServicesCards from "./components/HeroCards";
 
 export default function Page() {
   return (
@@ -17,7 +17,7 @@ export default function Page() {
           <Navbar />
           <HeroCarousel />
           <section className="py-16 px-4 md:px-8 lg:px-16 space-y-20">
-            <PreviewCarousel />
+            <ServicesCards />
             <About />
             <Services />
             <Projects />

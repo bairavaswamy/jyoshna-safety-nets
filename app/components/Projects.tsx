@@ -4,25 +4,39 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 
+const images = [
+  "/cards/invisble-grills-installation-near-me.webp",
+  "/cards/balcony-safety-nets-near-me.webp",
+  "/cards/transparant-balcony-safety-nets.webp",
+  "/cards/anti-bird-net.webp",
+  "/cards/duct-area-safety-nets-near-me.webp",
+  "/cards/safety-nets.webp",
+  "/cards/window-safety-nets.webp",
+  "/cards/transparant-balcony-safety-nets.webp",
+  "/cards/mokey-safety-nets-installation.webp",
+  "/cards/sports-nets-instllation.webp",
+  "/cards/balcony-safety-nets-near-me.webp",
+];
+
 const projects = [
   {
-    img: "https://images.unsplash.com/photo-1600607687644-c7171b42498c?auto=format&fit=crop&w=1400&q=80",
+    img: images[0],
     title: "Balcony Invisible Grill Installation",
   },
   {
-    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80",
+    img: images[1],
     title: "High Rise Balcony Safety Nets",
   },
   {
-    img: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1400&q=80",
+    img: images[4],
     title: "Apartment Duct Area Protection",
   },
   {
-    img: "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1400&q=80",
+    img: images[6],
     title: "Children Safety Balcony Nets",
   },
   {
-    img: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80",
+    img: images[2],
     title: "Luxury Apartment Balcony Safety",
   },
 ];
@@ -121,9 +135,9 @@ OUR WORK
 </p>
 
 <h2 className="text-4xl md:text-5xl font-bold mt-3 leading-tight">
-Cinematic Installations
+Premium Installations
 <br/>
-Across Premium Apartments
+Across Luxury Apartments
 </h2>
 
 <p className="text-white/60 mt-4 max-w-xl">

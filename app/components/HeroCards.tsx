@@ -1,118 +1,84 @@
-"use client";
-
-import React, { useRef } from "react";
-
-interface Service {
-  title: string;
-  desc: string;
-  img: string;
-}
-
-// SEO-friendly descriptions
-const services: Service[] = [
-  {
-    title: "Invisible Grills",
-    desc: "Enhance balcony safety with high-quality invisible grills that provide maximum protection without blocking your view or aesthetics.",
-    img: "/balcony-1.webp",
-  },
-  {
-    title: "Balcony Safety Nets",
-    desc: "Premium balcony safety nets designed to protect children, pets, and belongings while maintaining airflow and visibility.",
-    img: "/balcony-5.webp",
-  },
-  {
-    title: "Pigeon Safety Nets",
-    desc: "Effective anti-pigeon netting solutions to keep your space clean, hygienic, and free from bird disturbances.",
-    img: "/balcony-6.webp",
-  },
-  {
-    title: "Anti Bird Nets",
-    desc: "Durable bird protection nets that prevent unwanted entry while ensuring long-lasting performance.",
-    img: "/balcony-7.webp",
-  },
-  {
-    title: "Duct Area Safety Nets",
-    desc: "Secure open duct areas with strong and reliable safety nets to prevent accidents and ensure safety compliance.",
-    img: "/balcony-9.webp",
-  },
-  {
-    title: "Safety Net Installation",
-    desc: "Professional safety net installation services ensuring proper fitting, durability, and long-term reliability.",
-    img: "/balcony-1.webp",
-  },
-  {
-    title: "Windows Safety Nets",
-    desc: "Protect open windows with nearly invisible yet strong safety nets for homes, apartments, and offices.",
-    img: "/balcony-5.webp",
-  },
-  {
-    title: "Monkey Safety Nets",
-    desc: "Specialized monkey protection nets designed to prevent entry and ensure complete safety in affected areas.",
-    img: "/balcony-6.webp",
-  },
-  {
-    title: "Sports Nets",
-    desc: "High-quality sports nets suitable for cricket, football, and multi-purpose grounds with superior durability.",
-    img: "/balcony-7.webp",
-  },
-  {
-    title: "Children Safety Nets",
-    desc: "Child safety nets designed for balconies and open spaces to provide maximum protection and peace of mind.",
-    img: "/balcony-9.webp",
-  },
+import Image from "next/image";
+import Link from "next/link";
+const images = [
+  "/cards/invisble-grills-installation-near-me.webp",
+  "/cards/balcony-safety-nets-near-me.webp",
+  "/cards/transparant-balcony-safety-nets.webp",
+  "/cards/anti-bird-net.webp",
+  "/cards/duct-area-safety-nets-near-me.webp",
+  "/cards/safety-nets.webp",
+  "/cards/window-safety-nets.webp",
+  "/cards/transparant-balcony-safety-nets.webp",
+  "/cards/mokey-safety-nets-installation.webp",
+  "/cards/sports-nets-instllation.webp",
+  "/cards/balcony-safety-nets-near-me.webp",
 ];
 
-export default function PremiumSlider(): React.ReactElement {
-  const scrollRef = useRef<HTMLDivElement>(null);
+export const servicesData: Record<string, string> = {
+  "invisible-grills": "Invisible Grills",
+  "balcony-safety-nets": "Balcony Safety Nets",
+  "pigeon-safety-nets": "Pigeon Safety Nets",
+  "anti-bird-nets": "Anti Bird Nets",
+  "duct-area-safety-nets": "Duct Area Safety Nets",
+  "safety-net-installation": "Safety Net Installation",
+  "windows-safety-nets": "Windows Safety Nets",
+  "invisible-safety-nets": "Transparent Safety Nets",
+  "monkey-safety-nets": "Monkey Safety Nets",
+  "sports-nets": "Sports Nets",
+  "children-safety-nets": "Children Safety Nets",
+};
+
+const ServicesCards = () => {
+  const services = Object.entries(servicesData);
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-[#050510] overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute w-[700px] h-[700px] bg-purple-600/30 blur-[160px] rounded-full" />
+    <div className="bg-black min-h-screen p-6">
+      <div className="relative z-10 text-center mb-16 px-6">
+    {/* <p className="uppercase tracking-[4px] text-yellow-400 text-sm mb-3">
+      JYOSHA
+    </p> */}
 
-      {/* Slider */}
-      <div
-        ref={scrollRef}
-        className="flex gap-6 overflow-x-auto px-6 py-10 w-full max-w-[1200px] snap-x snap-mandatory scroll-smooth hide-scrollbar"
-      >
-        {services.map((service, i) => (
-          <div
-            key={i}
-            className="snap-center shrink-0 w-[85%] sm:w-[340px] h-[460px] rounded-[30px] relative bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-xl border border-white/20 shadow-[0_0_80px_rgba(168,85,247,0.35)]"
-          >
-            {/* Glow overlay */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.25),transparent_60%)]" />
+    <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+      Premium Safety Products
+      <br />
+      <span className="text-yellow-400">For Modern Living</span>
+    </h2>
 
-            {/* Image */}
-            <div className="h-[45%] w-full rounded-t-[30px] overflow-hidden">
-              <img
-                src={service.img}
-                alt={service.title}
-                className="w-full h-full object-cover opacity-70"
-              />
-            </div>
+    {/* <p className="text-white/60 mt-4 max-w-xl mx-auto">
+      Invisible protection systems crafted for high-rise apartments,
+      blending safety with elegance.
+    </p> */}
+  </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        
+        
 
-            {/* Content */}
-            <div className="p-6 text-white flex flex-col justify-between h-[55%]">
-              <h3 className="text-xl font-semibold leading-tight">
-                {service.title}
-              </h3>
+{services.map(([key, title], index) => (
+  <Link
+    key={key}
+    href={`/services/${key === "invisible-safety-nets" ? "balcony-safety-nets" : key}`}
+    className="block bg-[#1f2a33] rounded-2xl p-4 shadow-lg hover:scale-[1.02] transition-all duration-300"
+  >
+    {/* Image */}
+    <div className="rounded-xl overflow-hidden">
+      <Image
+        src={images[index % images.length]}
+        alt={title}
+        width={400}
+        height={250}
+        className="w-full h-[180px] object-cover"
+      />
+    </div>
 
-              <p className="text-sm text-white/70 mt-3 leading-relaxed">
-                {service.desc}
-              </p>
-
-              <button className="mt-4 w-fit px-5 py-2 rounded-full border border-white/30 bg-white/10 hover:bg-white/20 transition">
-                Learn more
-              </button>
-            </div>
-          </div>
-        ))}
+    {/* Title (Clickable) */}
+    <div className="mt-4 bg-[#3a444d] rounded-xl py-4 text-center">
+      <h3 className="text-white text-lg font-medium">{title}</h3>
+    </div>
+  </Link>
+))}
       </div>
     </div>
   );
-}
+};
 
-// add this in globals.css
-// .no-scrollbar::-webkit-scrollbar { display: none; }
-// .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+export default ServicesCards;

@@ -5,13 +5,13 @@ import Link from "next/link";
 
 export default function About() {
   return (
-    <section className="relative max-w-[1200px] mx-auto py-24 px-6 overflow-hidden">
+    <section className="relative max-w-[1400px] mx-auto py-24 px-6 overflow-hidden">
 
       {/* BACKGROUND IMAGE */}
       {/* BACKGROUND IMAGE (TEST VERSION) */}
 <div className="absolute inset-0 ">
   <img
-    src="https://eversafesafetynets.com/service/balcony-5.webp"
+    src="/invisble-grills-installation.webp"
     alt="background"
     className="w-full h-full object-cover opacity-20"
   />
@@ -36,49 +36,57 @@ export default function About() {
       <div className="grid md:grid-cols-3 gap-12 items-center">
 
         {/* LEFT VISUAL STACK */}
-        <div className="relative flex flex-col items-center gap-8">
+       <div className="relative flex flex-col items-center gap-8">
 
-          <div className="w-48 h-48 rounded-full overflow-hidden shadow-2xl border-[6px] border-white">
-            <Image
-              src="https://eversafesafetynets.com/service/balcony-5.webp"
-              alt="Balcony invisible grill installation"
-              width={240}
-              height={240}
-              sizes="(max-width:768px) 160px, 240px"
-              className="object-cover"
-            />
-          </div>
+  <div className="w-48 h-48 rounded-full overflow-hidden shadow-2xl border-[6px] border-white">
+    <Image
+      src="https://eversafesafetynets.com/service/balcony-5.webp"
+      alt="Balcony invisible grill installation"
+      width={240}
+      height={240}
+      sizes="(max-width:768px) 160px, 240px"
+      className="object-cover"
+    />
+  </div>
 
-          {/* design accent */}
-          <div
-            aria-hidden
-            className="w-0 h-0 border-l-[70px] border-l-transparent border-r-[70px] border-r-transparent border-t-[110px] border-t-yellow-500/90 drop-shadow-xl"
-          />
+  {/* design accent */}
+  {/* <div
+    aria-hidden
+    className="w-0 h-0 border-l-[70px] border-l-transparent border-r-[70px] border-r-transparent border-t-[110px] border-t-yellow-500/90 drop-shadow-xl"
+  /> */}
 
-          <div className="absolute -bottom-12 left-8 w-36 h-36 rounded-xl overflow-hidden shadow-2xl border-4 border-white">
-            <Image
-              src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?q=80&w=800"
-              alt="Modern apartment balcony view"
-              width={200}
-              height={200}
-              sizes="(max-width:768px) 120px, 200px"
-              className="object-cover"
-            />
-          </div>
+  {/* small image + text */}
+  <div className="absolute -bottom-12 left-8 w-36 h-36 rounded-xl overflow-hidden shadow-2xl border-4 border-white relative">
+    <Image
+      src="/cards/transparant-balcony-safety-nets.webp"
+      alt="Modern apartment balcony view"
+      width={220}
+      height={180}
+      sizes="(max-width:768px) 120px, 200px"
+      className="object-cover w-full h-full"
+    />
 
-        </div>
+    <p className="absolute bottom-0 left-0 w-full text-center text-white text-sm font-semibold bg-black/50 py-1 z-50">
+      Balcony Net
+    </p>
+  </div>
+
+</div>
 
         {/* FEATURE IMAGE */}
         <div className="relative h-[380px] group">
 
           <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
             <Image
-              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1400"
+              src="/cards/invisble-grills-installation-near-me.webp"
               alt="Luxury balcony protected with invisible grills"
               fill
               sizes="(max-width:768px) 100vw, 400px"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
+             <p className="absolute bottom-0 left-0 w-full text-center text-white text-sm font-semibold bg-black/50 py-5 z-50">
+      INVISIBLE GRILLS
+    </p>
           </div>
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent rounded-2xl" />

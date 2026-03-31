@@ -4,46 +4,78 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { useScroll, useTransform } from "framer-motion"
+import Link from "next/link"
+
+const images = [
+  "/cards/invisble-grills-installation-near-me.webp",
+  "/cards/balcony-safety-nets-near-me.webp",
+  "/cards/transparant-balcony-safety-nets.webp",
+  "/cards/anti-bird-net.webp",
+  "/cards/duct-area-safety-nets-near-me.webp",
+  "/cards/safety-nets.webp",
+  "/cards/window-safety-nets.webp",
+  "/cards/transparant-balcony-safety-nets.webp",
+  "/cards/mokey-safety-nets-installation.webp",
+  "/cards/sports-nets-instllation.webp",
+  "/cards/balcony-safety-nets-near-me.webp",
+];
 
 const services = [
   {
     title: "Invisible Grills",
-    image: "https://images.unsplash.com/photo-1600607687644-c7171b42498c",
+    image: images[0],
     desc: "Stainless steel wire grills that protect your balconies and windows without blocking your view.",
     tag: "Most Popular",
   },
   {
     title: "Balcony Safety Grills",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+    image: images[1],
     desc: "Prevent accidental falls in high-rise apartments with our invisible balcony protection.",
     tag: "Safety First",
   },
   {
+    title: "Transparent Balcony Nets",
+    image: images[2],
+    desc: "Crystal-clear safety nets that provide protection without affecting your balcony view.",
+    tag: "Premium",
+  },
+  {
     title: "Anti Bird Nets",
-    image: "https://images.unsplash.com/photo-1600210492493-0946911123ea",
+    image: images[3],
     desc: "Keep pigeons and birds away from your balcony without any ugly mesh or cages.",
     tag: "Hygienic",
   },
   {
-    title: "Sports Nets",
-    image: "https://images.unsplash.com/photo-1593349480506-8433634cdcbe",
-    desc: "Cricket practice nets and terrace ball-stop solutions for residential complexes.",
-    tag: "Outdoor",
-  },
-  {
     title: "Duct Area Safety",
-    image: "https://images.unsplash.com/photo-1600566752355-35792bedcfea",
+    image: images[4],
     desc: "Secure open shafts and duct areas in your building with durable safety nets.",
     tag: "Industrial",
   },
   {
-    title: "Children Safety Grills",
-    image: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e",
-    desc: "Give parents peace of mind with child-safe grill systems for balconies and windows.",
-    tag: "Child Safe",
+    title: "General Safety Nets",
+    image: images[5],
+    desc: "Strong and durable nets for balconies, windows, and open areas.",
+    tag: "Durable",
   },
-]
-
+  {
+    title: "Window Safety Nets",
+    image: images[6],
+    desc: "Protect windows from birds, pets, and children with strong net solutions.",
+    tag: "Secure",
+  },
+  {
+    title: "Monkey Safety Nets",
+    image: images[8],
+    desc: "Special nets to prevent monkey entry into homes and apartments.",
+    tag: "Protection",
+  },
+  {
+    title: "Sports Nets",
+    image: images[9],
+    desc: "Cricket practice nets and terrace ball-stop solutions for residential complexes.",
+    tag: "Outdoor",
+  },
+];
 
 
 export default function EliteCarousel() {
@@ -229,17 +261,25 @@ const scaleParallax = useTransform(scrollYProgress, [0, 1], [0.95, 1])
       </p>
     </div>
 
-    {isCenter && (
-      <div className="flex items-center justify-between mt-5">
-        <button className="text-yellow-400 text-sm font-semibold hover:underline">
-          Explore →
-        </button>
+   {isCenter && (
+  <div className="flex items-center justify-between mt-5">
+    
+    <Link
+      href="/services"
+      className="text-yellow-400 text-sm font-semibold hover:underline"
+    >
+      Explore →
+    </Link>
 
-        <button className="text-xs px-5 py-2 rounded-full bg-yellow-400 text-black font-semibold hover:scale-110 transition">
-          Call Now
-        </button>
-      </div>
-    )}
+    <a
+      href="tel:+919876543210"
+      className="text-xs px-5 py-2 rounded-full bg-yellow-400 text-black font-semibold hover:scale-110 transition inline-block"
+    >
+      Call Now
+    </a>
+
+  </div>
+)}
   </div>
 </motion.div>
         )

@@ -126,7 +126,7 @@ export default function DropdownClient() {
                         <Link
                           key={`${slugToTitle(service)}-${location}`}
                           href={`/services/${service}/${location}`}
-                          className="block px-5 py-3 text-sm hover:bg-orange-50 dark:hover:bg-gray-700 transition"
+                          className="block px-5 py-3 text-sm hover:bg-orange-50 text-gray-700 dark:hover:bg-gray-700 transition"
                         >
                           {slugToTitle(service)} in {slugToTitle(location)}
                         </Link>

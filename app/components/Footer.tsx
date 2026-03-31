@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { services } from "./constants/services";
+import { locations } from "./constants/locations";
 
 /* ---------- FORMAT ---------- */
 const formatName = (slug: string): string =>
@@ -25,7 +26,7 @@ function FooterServices() {
   return (
     <div className="space-y-4">
       <h4 className="text-white font-semibold mb-2">Services</h4>
-      <ul className="space-y-2 max-h-52 overflow-y-auto pr-2 scrollbar-none">
+      <ul className="space-y-2 max-h-52 overflow-y-auto pr-2 hide-scrollbar">
         {services.map((service) => (
           <li key={service}>
             <Link
@@ -125,7 +126,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6">
 
         {/* CTA BANNER */}
-        <div className="mb-16 p-8 rounded-2xl bg-gradient-to-r from-orange-500/10 to-indigo-500/10 border border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
+        {/* <div className="mb-16 p-8 rounded-2xl bg-gradient-to-r from-orange-500/10 to-indigo-500/10 border border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
           <div>
             <h2 className="text-2xl md:text-3xl font-semibold text-white">
               Protect Your Balcony Today
@@ -148,7 +149,7 @@ export default function Footer() {
               WhatsApp
             </a>
           </div>
-        </div>
+        </div> */}
 
         {/* GRID */}
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
@@ -187,9 +188,9 @@ export default function Footer() {
 
           {/* AREAS */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Service Areas</h4>
-            <ul className="grid grid-cols-2 gap-2 text-sm">
-              {["whitefield","sarjapur","varthur","marathahalli","hsr-layout","electronic-city"].map(area => (
+            <h4 className="text-white font-semibold mb-4">Areas We Serve</h4>
+            <ul className="grid grid-cols-2 gap-2 text-sm h-48 lg:h-60 overflow-y-auto pr-2 hide-scrollbar">
+              {locations.map(area => (
                 <li key={area}>
                   <Link
                     href={`/services/invisible-grills/${area}`}
@@ -208,7 +209,7 @@ export default function Footer() {
             <div className="space-y-3 text-sm">
               <div className="flex items-center gap-2"><Phone size={16} className="text-orange-400" /> +91 90000 00000</div>
               <div className="flex items-center gap-2"><Mail size={16} className="text-orange-400" /> info@jyoshnagrills.com</div>
-              <div className="flex items-center gap-2"><MapPin size={16} className="text-orange-400" /> Bangalore, India</div>
+              <div className="flex items-center gap-2"><MapPin size={16} className="text-orange-400" /> Vizag, India</div>
             </div>
           </div>
 
@@ -217,6 +218,7 @@ export default function Footer() {
         {/* BOTTOM */}
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-neutral-400">
           <p>© {year ?? 2026} Jyoshna Invisible Grills</p>
+          <p>Designed by <span className="text-orange-400">GBrix Tech Labs</span></p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <Link href="/privacy" className="hover:text-orange-500">Privacy</Link>
             <Link href="/terms" className="hover:text-orange-500">Terms</Link>

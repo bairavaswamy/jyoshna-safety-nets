@@ -22,21 +22,21 @@ const AUTOPLAY = 8000;
 const slides = [
   {
     image:
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070",
+      "/invisble-grills-installation.webp",
     title: "Premium Invisible Grills",
     subtitle: "Jyoshna Invisible Grill",
     desc: "Luxury balcony protection with high-tensile stainless steel invisible grills."
   },
   {
     image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070",
+      "/transparabt-net-installation.webp",
     title: "Safe Balcony Living",
     subtitle: "Modern Protection",
     desc: "Protect children and pets without blocking your balcony view."
   },
   {
     image:
-      "https://images.unsplash.com/photo-1600210492493-0946911123ea?q=80&w=2070",
+      "/balcony-safety-nets.webp",
     title: "Modern Safety Systems",
     subtitle: "Elegant Design",
     desc: "Minimalistic safety solutions for modern apartments."
@@ -126,7 +126,7 @@ export default function CinematicHeroV3() {
               fill
               priority
               sizes="100vw"
-              className="object-cover"
+              className="object-fit"
             />
           </motion.div>
 
