@@ -5,6 +5,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Search, Moon, Sun, Mic } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 
 import { services } from "./constants/services";
 import { locations } from "./constants/locations";
@@ -193,12 +194,19 @@ const Navbar = () => {
           <div className="flex items-center justify-between px-6 py-4">
             {/* LOGO */}
             <Link href="/" className="flex items-center gap-3">
-              <span className="text-yellow-400 text-2xl font-bold">JG</span>
-              <div>
-                <p className="text-white font-semibold">Jyoshna</p>
-                <p className="text-xs text-gray-400">Invisible Grills</p>
-              </div>
-            </Link>
+            <Image
+              src="/jyoshna-invisible-grills-logo.webp"
+              alt="Jyoshna Invisible Grills Logo"
+              width={50}
+              height={50}
+              className="object-contain rounded-full  border-2 border-yellow-400 shadow-lg bg-white"
+            />
+
+            <div>
+              <p className="text-white font-semibold">Jyoshna</p>
+              <p className="text-xs text-gray-400">Invisible Grills</p>
+            </div>
+          </Link>
 
             {/* NAV */}
             <nav className="hidden lg:flex items-center gap-6">

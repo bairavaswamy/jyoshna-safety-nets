@@ -5,6 +5,7 @@ import { locations } from "@/app/components/constants/locations";
 import { images } from "./images";
 import { seededIndex } from "./seed";
 import Link from "next/link";
+import { Metadata } from "next";
 
 export const servicesData: Record<string, string> = {
   "invisible-grills": "Invisible Grills",
@@ -14,7 +15,7 @@ export const servicesData: Record<string, string> = {
   "duct-area-safety-nets": "Duct Area Safety Nets",
   "safety-net-installation": "Safety Net Installation",
   "windows-safety-nets": "Windows Safety Nets",
-  "balcon-safety-nets": "Balcony Safety Nets", // typo kept if needed
+  "balcon-safety-nets": "Balcony Safety Nets", 
   "monkey-safety-nets": "Monkey Safety Nets",
   "sports-nets": "Sports Nets",
   "children-safety-nets": "Children Safety Nets",
@@ -31,6 +32,7 @@ import {
 
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
+import { locationSlug } from "@/app/components/constants/commons";
 
 type Props = {
   params: Promise<{
@@ -38,6 +40,8 @@ type Props = {
     location: string;
   }>;
 };
+
+
 
 const slugToTitle = (slug: string) =>
   slug
@@ -51,18 +55,77 @@ export async function generateStaticParams() {
   return services.flatMap((service) =>
     locations.map((location) => ({
       service,
-      location,
+      location: locationSlug(location),
     }))
   );
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  let { service, location } = await params;
+   location = slugToTitle(location);
+  const serviceTitle = service
+    .split("-")
+    .map((w) => w[0].toUpperCase() + w.slice(1))
+    .join(" ");
+
+  const title = `Jyoshna ${serviceTitle} in ${location} | Free Inspection & Best Price`;
+
+  const description = `Looking for ${serviceTitle.toLowerCase()} in ${location}? Jyoshna Invisible Grills offers professional installation with high-quality materials, affordable pricing, and expert service. Call now for free inspection.`;
+
+  return {
+    title,
+    description,
+
+    keywords: [
+      `${serviceTitle} in ${location}`,
+      `${serviceTitle} near me`,
+      `Jyoshna Invisible Grills ${location}`,
+      `balcony safety nets ${location}`,
+      `invisible grills installation ${location}`,
+      `best ${serviceTitle.toLowerCase()} ${location}`,
+    ],
+
+    openGraph: {
+      title,
+      description,
+      url: `https://jyoshnainvisiblegrills.com/services/${service}/${location}`,
+      siteName: "Jyoshna Invisible Grills",
+      images: [
+        {
+          url: "https://jyoshnainvisiblegrills.com/og-image.webp", // replace later
+          width: 1200,
+          height: 630,
+        },
+      ],
+      locale: "en_IN",
+      type: "website",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["https://jyoshnainvisiblegrills.com/og-image.webp"],
+    },
+
+    alternates: {
+      canonical: `https://jyoshnainvisiblegrills.com/services/${service}/${location}`,
+    },
+  };
 }
 
 export default async function Page({ params }: Props) {
   const { service, location } = await params;
 const serviceTitle = slugToTitle(service);
+  const isValidService = services.includes(service);
 
-  if (!services.includes(service) || !locations.includes(location)) {
-    notFound();
-  }
+const isValidLocation = locations.some(
+  (loc) => locationSlug(loc) === location.toLowerCase()
+);
+
+if (!isValidService || !isValidLocation) {
+  notFound();
+}
 
   
 
@@ -108,6 +171,72 @@ const serviceTitle = slugToTitle(service);
     .sort(() => 0.5 - Math.random())
     .slice(0, 6);
 
+    const schema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "Jyoshna Invisible Grills",
+  image: "https://jyoshnainvisiblegrills.com/logo.png",
+  "@id": `https://jyoshnainvisiblegrills.com/services/${service}/${location}`,
+  url: `https://jyoshnainvisiblegrills.com/services/${service}/${location}`,
+  telephone: "+918106420981",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: location,
+    addressRegion: "Telangana",
+    addressCountry: "IN",
+  },
+  areaServed: {
+    "@type": "Place",
+    name: location,
+  },
+  serviceType: servicesData[service],
+  description: `Professional ${servicesData[service]} in ${location} with high-quality installation and affordable pricing.`,
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f: any) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: f.a,
+    },
+  })),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://jyoshnainvisiblegrills.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Services",
+      item: "https://jyoshnainvisiblegrills.com/services",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: servicesData[service],
+      item: `https://jyoshnainvisiblegrills.com/services/${service}`,
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
+      name: location,
+      item: `https://jyoshnainvisiblegrills.com/services/${service}/${location}`,
+    },
+  ],
+};
+
   return (
     <>
      
@@ -115,6 +244,50 @@ const serviceTitle = slugToTitle(service);
       <main className="bg-neutral-950 text-white">
          <Navbar />
 
+         <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+
+        <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+          <div className="max-w-7xl mx-auto px-6 pt-6 text-sm text-neutral-400">
+            <div className="flex flex-wrap items-center gap-2">
+
+              <Link href="/" className="hover:text-orange-400 transition">
+                Home
+              </Link>
+
+              <span>/</span>
+
+              <Link href="/" className="hover:text-orange-400 transition">
+                Services
+              </Link>
+
+              <span>/</span>
+
+              <Link
+                href={`/services/${service}`}
+                className="hover:text-orange-400 transition"
+              >
+                {servicesData[service]}
+              </Link>
+
+              <span>/</span>
+
+              <span className="text-white font-medium">
+                {location}
+              </span>
+
+            </div>
+          </div>
     {/* HERO */}
     <section className="relative py-24 border-b border-white/10 bg-neutral-950 overflow-hidden">
 
@@ -144,12 +317,12 @@ const serviceTitle = slugToTitle(service);
           <h1 className="
             text-4xl md:text-5xl font-bold leading-tight
           ">
-            {hero({ service: slugToTitle(service), location })}
+            {hero({ service: slugToTitle(service), location: slugToTitle(location) })}
           </h1>
 
           {/* DESCRIPTION */}
           <p className="mt-6 text-neutral-400 text-lg max-w-lg">
-            {description({ service: slugToTitle(service), location })}
+            {description({ service: slugToTitle(service), location: slugToTitle(location) })}
           </p>
 
           {/* TRUST POINTS */}
@@ -160,22 +333,23 @@ const serviceTitle = slugToTitle(service);
           </div>
 
           {/* CTA */}
-          <div className="flex flex-wrap gap-4 mt-8">
-
-            <button className="
-              bg-orange-500
-              hover:bg-orange-600
-              px-8 py-3
+          
+            <div className="flex flex-wrap gap-4 mt-8">
+              <a href="https://wa.me/918106420981">
+              <button className="
+                bg-orange-500
+                hover:bg-orange-600
+                px-8 py-3
               rounded-lg
               font-medium
               shadow-lg shadow-orange-500/30
               transition
             ">
               Get Free Inspection
-            </button>
+            </button> </a>
 
             <a
-              href="tel:+919876543210"
+              href="tel:+918106420981"
               className="
                 px-8 py-3
                 rounded-lg
@@ -191,7 +365,7 @@ const serviceTitle = slugToTitle(service);
 
           {/* SOCIAL PROOF */}
           <p className="text-xs text-neutral-500 mt-6">
-            ⭐ Rated by customers across {location}
+            ⭐ Rated by customers across {slugToTitle(location)}
           </p>
 
         </div>
@@ -201,7 +375,7 @@ const serviceTitle = slugToTitle(service);
 
           <Image
             src={heroImage}
-            alt={`${serviceTitle} installation in ${location}`}
+            alt={`${serviceTitle} installation in ${slugToTitle(location)}`}
             fill
             priority
             className="
@@ -243,7 +417,7 @@ const serviceTitle = slugToTitle(service);
             </h2>
 
             <p className="text-neutral-400 mt-3 max-w-2xl mx-auto">
-              Trusted {servicesData[service]} experts serving {location} with high-quality installation and reliable service.
+              Trusted {servicesData[service]} experts serving {slugToTitle(location)} with high-quality installation and reliable service.
             </p>
           </div>
 
@@ -275,7 +449,7 @@ const serviceTitle = slugToTitle(service);
                 <li>✔ High-Quality Materials</li>
                 <li>✔ Skilled Installation Team</li>
                 <li>✔ Affordable Pricing</li>
-                <li>✔ Service Across {location}</li>
+                <li>✔ Service Across {slugToTitle(location)}</li>
               </ul>
             </div>
 
@@ -294,11 +468,11 @@ const serviceTitle = slugToTitle(service);
             text-3xl md:text-4xl font-bold
             bg-gradient-to-r from-orange-400 to-indigo-400 bg-clip-text text-transparent
           ">
-            {serviceTitle} Price in {location}
+            {serviceTitle} Price in {slugToTitle(location)}
           </h2>
 
           <p className="text-neutral-400 mt-3 max-w-xl mx-auto">
-            Transparent and affordable pricing for {serviceTitle.toLowerCase()} installation in {location}.
+            Transparent and affordable pricing for {serviceTitle.toLowerCase()} installation in {slugToTitle(location)}.
           </p>
         </div>
 
@@ -317,7 +491,7 @@ const serviceTitle = slugToTitle(service);
             <ul className="space-y-2 text-sm text-neutral-300">
               <li>✔ No hidden charges</li>
               <li>✔ Free inspection available</li>
-              <li>✔ Best price in {location}</li>
+              <li>✔ Best price in {slugToTitle(location)}</li>
               <li>✔ Quality guaranteed</li>
             </ul>
           </div>
@@ -346,18 +520,20 @@ const serviceTitle = slugToTitle(service);
             </p>
 
             {/* CTA */}
-            <button className="
-              w-full
-              bg-orange-500
-              hover:bg-orange-600
-              py-3
-              rounded-lg
+            <Link href="/contact">
+              <button className="
+                w-full
+                bg-orange-500
+                hover:bg-orange-600
+                py-3
+                rounded-lg
               font-medium
               shadow-lg shadow-orange-500/30
               transition
             ">
               Get Free Quote
             </button>
+            </Link>
 
             {/* EXTRA TRUST */}
             <p className="text-xs text-neutral-500 mt-4">
@@ -381,11 +557,11 @@ const serviceTitle = slugToTitle(service);
                 text-3xl md:text-4xl font-bold
                 bg-gradient-to-r from-orange-400 to-indigo-400 bg-clip-text text-transparent
               ">
-                Best {serviceTitle} in {location}
+                Best {serviceTitle} in {slugToTitle(location)}
               </h2>
 
               <p className="text-neutral-400 mt-3 max-w-2xl mx-auto">
-                Trusted experts providing high-quality {serviceTitle.toLowerCase()} services across {location} with safety, durability, and affordability.
+                Trusted experts providing high-quality {serviceTitle.toLowerCase()} services across {slugToTitle(location)} with safety, durability, and affordability.
               </p>
             </div>
 
@@ -395,11 +571,11 @@ const serviceTitle = slugToTitle(service);
               {/* LEFT CONTENT */}
               <div className="space-y-4 text-neutral-400 leading-relaxed">
                 <p>
-                  Looking for reliable {serviceTitle.toLowerCase()} in {location}? Our team offers professional installation services designed to enhance safety and improve the appearance of your space.
+                  Looking for reliable {serviceTitle.toLowerCase()} in {slugToTitle(location)}? Our team offers professional installation services designed to enhance safety and improve the appearance of your space.
                 </p>
 
                 <p>
-                  We specialize in balcony safety nets, pigeon protection systems, and invisible grills suitable for homes, apartments, and commercial buildings in {location}.
+                  We specialize in balcony safety nets, pigeon protection systems, and invisible grills suitable for homes, apartments, and commercial buildings in {slugToTitle(location)}.
                 </p>
 
                 <p>
@@ -422,7 +598,7 @@ const serviceTitle = slugToTitle(service);
                   <li>✔ Premium Quality Materials</li>
                   <li>✔ Expert Installation Team</li>
                   <li>✔ Affordable Pricing</li>
-                  <li>✔ Fast Service Across {location}</li>
+                  <li>✔ Fast Service Across {slugToTitle(location)}</li>
                   <li>✔ Suitable for Homes & Apartments</li>
                 </ul>
               </div>
@@ -432,19 +608,21 @@ const serviceTitle = slugToTitle(service);
             {/* CTA */}
             <div className="text-center mt-12">
               <p className="text-neutral-400 mb-4">
-                Get the best {serviceTitle.toLowerCase()} service in {location} today.
+                Get the best {serviceTitle.toLowerCase()} service in {slugToTitle(location)} today.
               </p>
 
-              <button className="
-                bg-orange-500
-                hover:bg-orange-600
-                px-8 py-3
-                rounded-lg
-                font-medium
+              <Link href="/contact">
+                <button className="
+                  bg-orange-500
+                  hover:bg-orange-600
+                  px-8 py-3
+                  rounded-lg
+                  font-medium
                 transition-colors
               ">
                 Get Free Quote
               </button>
+              </Link>
             </div>
 
           </div>
@@ -460,7 +638,7 @@ const serviceTitle = slugToTitle(service);
                 text-3xl md:text-4xl font-bold
                 bg-gradient-to-r from-orange-400 to-indigo-400 bg-clip-text text-transparent
               ">
-                Why Choose Our {serviceTitle} in {location}
+                Why Choose Our {serviceTitle} in {slugToTitle(location)}
               </h2>
 
               <p className="text-neutral-400 mt-3 max-w-xl mx-auto">
@@ -474,7 +652,7 @@ const serviceTitle = slugToTitle(service);
               {[
                 {
                   title: "Premium Quality Materials",
-                  desc: `We use durable and high-strength materials for long-lasting ${serviceTitle.toLowerCase()} solutions in ${location}.`,
+                  desc: `We use durable and high-strength materials for long-lasting ${serviceTitle.toLowerCase()} solutions in ${slugToTitle(location)}.`,
                   icon: "🛡️",
                 },
                 {
@@ -484,12 +662,12 @@ const serviceTitle = slugToTitle(service);
                 },
                 {
                   title: "Affordable Pricing",
-                  desc: `Get the best ${serviceTitle.toLowerCase()} services in ${location} at competitive and transparent pricing.`,
+                  desc: `Get the best ${serviceTitle.toLowerCase()} services in ${slugToTitle(location)} at competitive and transparent pricing.`,
                   icon: "💰",
                 },
                 {
                   title: "Fast Service",
-                  desc: `Quick response and same-day inspection available across ${location}.`,
+                  desc: `Quick response and same-day inspection available across ${slugToTitle(location)}.`,
                   icon: "⚡",
                 },
                 {
@@ -540,16 +718,18 @@ const serviceTitle = slugToTitle(service);
 
             {/* CTA */}
             <div className="text-center mt-14">
-              <button className="
-                bg-orange-500
-                hover:bg-orange-600
-                px-8 py-3
-                rounded-lg
-                font-medium
-                transition-colors
-              ">
-                Get Free Inspection
-              </button>
+              <Link href="/contact">
+                <button className="
+                  bg-orange-500
+                  hover:bg-orange-600
+                  px-8 py-3
+                  rounded-lg
+                  font-medium
+                  transition-colors
+                ">
+                  Get Free Inspection
+                </button>
+              </Link>
             </div>
 
           </div>
@@ -566,11 +746,11 @@ const serviceTitle = slugToTitle(service);
               text-3xl md:text-4xl font-bold
               bg-gradient-to-r from-orange-400 to-indigo-400 bg-clip-text text-transparent
             ">
-              Areas We Serve Near {location}
+              Areas We Serve Near {slugToTitle(location)}
             </h2>
 
             <p className="text-neutral-400 mt-3 max-w-xl mx-auto">
-              We provide {serviceTitle.toLowerCase()} services across {location} and nearby areas with fast installation and affordable pricing.
+              We provide {serviceTitle.toLowerCase()} services across {slugToTitle(location)} and nearby areas with fast installation and affordable pricing.
             </p>
           </div>
 
@@ -624,6 +804,7 @@ const serviceTitle = slugToTitle(service);
               Looking for {serviceTitle.toLowerCase()} in your area?
             </p>
 
+           <a href="tel:+918106420981">
             <button className="
               bg-orange-500
               hover:bg-orange-600
@@ -634,6 +815,7 @@ const serviceTitle = slugToTitle(service);
             ">
               Contact for Nearby Service
             </button>
+            </a>
           </div>
 
         </div>
@@ -649,7 +831,7 @@ const serviceTitle = slugToTitle(service);
             text-3xl md:text-4xl font-bold
             bg-gradient-to-r from-orange-400 to-indigo-400 bg-clip-text text-transparent
           ">
-            Our Installation Process in {location}
+            Our Installation Process in {slugToTitle(location)}
           </h2>
 
           <p className="text-neutral-400 mt-3 max-w-xl mx-auto">
@@ -720,7 +902,9 @@ const serviceTitle = slugToTitle(service);
         </div>
 
         {/* CTA */}
+        
         <div className="text-center mt-14">
+          <a href="https://wa.me/918106420981">
           <button className="
             bg-orange-500
             hover:bg-orange-600
@@ -731,6 +915,7 @@ const serviceTitle = slugToTitle(service);
           ">
             Book Free Inspection
           </button>
+          </a>
         </div>
 
       </div>
@@ -746,11 +931,11 @@ const serviceTitle = slugToTitle(service);
                 text-3xl md:text-4xl font-bold
                 bg-gradient-to-r from-orange-400 to-indigo-400 bg-clip-text text-transparent
               ">
-                {serviceTitle} Service in {location}
+                {serviceTitle} Service in {slugToTitle(location)}
               </h2>
 
               <p className="text-neutral-400 mt-3 max-w-xl mx-auto">
-                We provide professional {serviceTitle.toLowerCase()} installation services across {location} and nearby areas. Find our service coverage below.
+                We provide professional {serviceTitle.toLowerCase()} installation services across {slugToTitle(location)} and nearby areas. Find our service coverage below.
               </p>
             </div>
 
@@ -767,7 +952,7 @@ const serviceTitle = slugToTitle(service);
                   ">
                     <iframe
                       loading="lazy"
-                      src={`https://maps.google.com/maps?q=${location}&z=13&output=embed`}
+                      src={`https://maps.google.com/maps?q=${slugToTitle(location)}&z=13&output=embed`}
                       className="w-full h-[400px] border-0"
                     />
                   </div>
@@ -781,11 +966,11 @@ const serviceTitle = slugToTitle(service);
                   ">
 
                     <h3 className="text-xl font-semibold mb-4">
-                      Serving {location} & Nearby Areas
+                      Serving {slugToTitle(location)} & Nearby Areas
                     </h3>
 
                     <p className="text-neutral-400 mb-6 leading-relaxed">
-                      Our team offers reliable and affordable {serviceTitle.toLowerCase()} services in {location}. We ensure safe installation for balconies, windows, and open spaces using high-quality materials.
+                      Our team offers reliable and affordable {serviceTitle.toLowerCase()} services in {slugToTitle(location)}. We ensure safe installation for balconies, windows, and open spaces using high-quality materials.
                     </p>
 
                     {/* FEATURES */}
@@ -797,16 +982,18 @@ const serviceTitle = slugToTitle(service);
                     </ul>
 
                     {/* CTA */}
-                    <button className="
-                      bg-orange-500
-                      hover:bg-orange-600
-                      px-6 py-3
-                      rounded-lg
-                      font-medium
+                    <a href="tel:+918106420981">
+                      <button className="
+                        bg-orange-500
+                        hover:bg-orange-600
+                        px-6 py-3
+                        rounded-lg
+                          font-medium
                       transition-colors
                     ">
                       Get Location Service
                     </button>
+                  </a>
 
                   </div>
 
@@ -824,11 +1011,11 @@ const serviceTitle = slugToTitle(service);
                   text-3xl md:text-4xl font-bold mb-4
                   bg-gradient-to-r from-orange-400 to-indigo-400 bg-clip-text text-transparent
                 ">
-                  Customer Reviews in {location}
+                  Customer Reviews in {slugToTitle(location)}
                 </h2>
 
                 <p className="text-neutral-400 max-w-xl mx-auto mb-12">
-                  Trusted by hundreds of customers for {serviceTitle.toLowerCase()} installation in {location} and nearby areas.
+                  Trusted by hundreds of customers for {serviceTitle.toLowerCase()} installation in {slugToTitle(location)} and nearby areas.
                 </p>
 
                 {/* GRID */}
@@ -837,19 +1024,19 @@ const serviceTitle = slugToTitle(service);
                   {[
                     {
                       name: "Ravi Kumar",
-                      text: `Excellent ${serviceTitle} service in ${location}. Installation was quick, clean, and very professional. Highly satisfied with the quality.`,
+                      text: `Excellent ${serviceTitle} service in ${slugToTitle(location)}. Installation was quick, clean, and very professional. Highly satisfied with the quality.`,
                     },
                     {
                       name: "Sneha Reddy",
-                      text: `Best choice for balcony safety in ${location}. The materials are strong and the team was very responsive.`,
+                      text: `Best choice for balcony safety in ${slugToTitle(location)}. The materials are strong and the team was very responsive.`,
                     },
                     {
                       name: "Arjun Patel",
-                      text: `Affordable pricing and great durability. If you're looking for ${serviceTitle.toLowerCase()} in ${location}, this is the right service.`,
+                      text: `Affordable pricing and great durability. If you're looking for ${serviceTitle.toLowerCase()} in ${slugToTitle(location)}, this is the right service.`,
                     },
                     {
                       name: "Kiran Rao",
-                      text: `Very reliable service in ${location}. Installation was completed on time and looks very premium.`,
+                      text: `Very reliable service in ${slugToTitle(location)}. Installation was completed on time and looks very premium.`,
                     },
                     {
                       name: "Pooja Sharma",
@@ -857,7 +1044,7 @@ const serviceTitle = slugToTitle(service);
                     },
                     {
                       name: "Manoj Verma",
-                      text: `Professional team with great attention to detail. One of the best services available in ${location}.`,
+                      text: `Professional team with great attention to detail. One of the best services available in ${slugToTitle(location)}.`,
                     },
                   ].map((r, i) => (
                     <div
@@ -891,7 +1078,7 @@ const serviceTitle = slugToTitle(service);
                         <div>
                           <h4 className="font-semibold text-white">{r.name}</h4>
                           <p className="text-xs text-neutral-500">
-                            {location}
+                            {slugToTitle(location)}
                           </p>
                         </div>
 
@@ -991,12 +1178,14 @@ const serviceTitle = slugToTitle(service);
           border-t border-white/10
         ">
           <h2 className="text-3xl font-bold">
-            {cta({ location })}
+            {cta({ location: slugToTitle(location) })}
           </h2>
 
-          <button className="mt-6 bg-orange-500 px-8 py-3 rounded-lg font-semibold shadow-lg shadow-orange-500/40 hover:bg-orange-600 transition">
-            Call Now
-          </button>
+          <a href="tel:+918106420981">
+            <button className="mt-6 bg-orange-500 px-8 py-3 rounded-lg font-semibold shadow-lg shadow-orange-500/40 hover:bg-orange-600 transition">
+              Call Now
+            </button>
+          </a>
         </section>
 
       </main>

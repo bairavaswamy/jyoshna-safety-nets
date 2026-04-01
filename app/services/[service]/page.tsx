@@ -4,6 +4,7 @@ import { services } from "@/app/components/constants/services";
 import { images } from "./[location]/images";
 import { seededIndex } from "./[location]/seed";
 import Link from "next/link";
+import { Metadata } from "next";
 
 import {
   heroVariants,
@@ -53,6 +54,62 @@ export async function generateStaticParams() {
   return services.map((service) => ({
     service,
   }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { service } = await params;
+
+  const serviceTitle =
+    servicesData[service] || slugToTitle(service);
+
+  const location = "Visakhapatnam";
+
+  const title = `${serviceTitle} in ${location} | Jyoshna Safety Nets`;
+  const description = `Looking for ${serviceTitle.toLowerCase()} in ${location}? We provide professional installation with affordable pricing, durable materials, and fast service across ${location}. Call now for free inspection.`;
+
+  const keywords = [
+    `${serviceTitle} in ${location}`,
+    `${serviceTitle} price ${location}`,
+    `${serviceTitle} near me`,
+    "safety nets Visakhapatnam",
+    "balcony safety nets Vizag",
+    "pigeon nets Vizag",
+    "invisible grills Vizag",
+  ];
+
+  return {
+    title,
+    description,
+    keywords,
+
+    openGraph: {
+      title,
+      description,
+      url: `https://jyoshnainvisiblegrills.com/services/${service}`,
+      siteName: "Jyoshna Safety Nets",
+      images: [
+        {
+          url: "https://jyoshnainvisiblegrills.com/jyoshna-invisible-grills-logo.webp",
+          width: 1200,
+          height: 630,
+          alt: `${serviceTitle} in ${location}`,
+        },
+      ],
+      locale: "en_IN",
+      type: "website",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["https://jyoshnainvisiblegrills.com/jyoshna-invisible-grills-logo.webp"],
+    },
+
+    alternates: {
+      canonical: `https://jyoshnainvisiblegrills.com/services/${service}`,
+    },
+  };
 }
 
 export default async function Page({ params }: Props) {
@@ -107,10 +164,67 @@ export default async function Page({ params }: Props) {
     "Rushikonda",
   ];
 
+
+
+
   return (
     <>
       <main className="bg-neutral-950 text-white">
         <Navbar />
+        <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: "Jyoshna Safety Nets",
+      image: "https://jyoshnainvisiblegrills.com/jyoshna-invisible-grills-logo.webp",
+      "@id": "https://jyoshnainvisiblegrills.com",
+      url: "https://jyoshnainvisiblegrills.com",
+      telephone: "+919876543210",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Visakhapatnam",
+        addressRegion: "Andhra Pradesh",
+        addressCountry: "IN",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 17.6868,
+        longitude: 83.2185,
+      },
+      areaServed: {
+        "@type": "City",
+        name: "Visakhapatnam",
+      },
+      serviceArea: {
+        "@type": "Place",
+        name: "Visakhapatnam",
+      },
+      description: `${serviceTitle} services in Visakhapatnam with expert installation and affordable pricing.`,
+      priceRange: "20-500",
+    }),
+  }}
+/>
+        <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      serviceType: serviceTitle,
+      provider: {
+        "@type": "LocalBusiness",
+        name: "Jyoshna Safety Nets",
+      },
+      areaServed: {
+        "@type": "City",
+        name: "Visakhapatnam",
+      },
+      description: `Professional ${serviceTitle.toLowerCase()} installation in Visakhapatnam with affordable pricing and expert service.`,
+    }),
+  }}
+/>
 
         {/* HERO */}
         <section className="relative py-24 border-b border-white/10 bg-neutral-950 overflow-hidden">

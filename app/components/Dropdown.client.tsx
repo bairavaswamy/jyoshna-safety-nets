@@ -6,6 +6,7 @@ import { locations } from "./constants/locations";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { locationSlug } from "./constants/commons";
 
 
 const slugToTitle = (slug: string) => {
@@ -121,10 +122,10 @@ export default function DropdownClient() {
                         Locations
                       </div>
 
-                      {locations.map((location) => (
+                      {locations.map((location,index) => (
 
                         <Link
-                          key={`${slugToTitle(service)}-${location}`}
+                          key={`${slugToTitle(service)}-${locationSlug(location)}-${index}`}
                           href={`/services/${service}/${location}`}
                           className="block px-5 py-3 text-sm hover:bg-orange-50 text-gray-700 dark:hover:bg-gray-700 transition"
                         >

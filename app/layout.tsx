@@ -1,14 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
-import { AnalyticsProvider } from "./components/AnalyticsProvider";
-
-import GA from "./components/analytics/GoogleAnalytics";
-import Clarity from "./components/analytics/Clarity";
-import PageTracker from "./components/analytics/PageTracker";
-
-// import NewsletterPopup from "./components/NewsletterPopup";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,11 +25,11 @@ export const metadata: Metadata = {
     title: "Jyoshna Invisible Grills & Safety Nets",
     description:
       "Premium safety solutions for balconies and apartments.",
-    url: "https://jyoshnagrills.com",
+    url: "https://jyoshnainvisiblegrills.com",
     siteName: "Jyoshna Safety Nets",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1600607687644-c7171b42498c",
+        url: "https://jyoshnainvisiblegrills.com/invisble-grills-installation.webp",
         width: 1200,
         height: 630,
         alt: "Invisible grills installation",
@@ -69,23 +62,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <GoogleTagManager gtmId="GTM-XXXXXXX" />
       <body className={`${inter.className} antialiased`}>
-          <AnalyticsProvider>
-
-            {/* Page analytics tracking */}
-            <PageTracker />
-
             {children}
 
             {/* Lead capture */}
             {/* <NewsletterPopup /> */}
-
-          </AnalyticsProvider>
-
-        {/* Analytics scripts load AFTER page interactive */}
-        <GA />
-        <Clarity />
-
         {/* Local Business Schema */}
         <script
           type="application/ld+json"
@@ -94,16 +76,29 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
               name: "Jyoshna Safety Nets",
-              url: "https://jyoshnagrills.com",
-              telephone: "+91-9900000000",
-              logo: "https://jyoshnagrills.com/logo.png",
-              address: {
-                "@type": "PostalAddress",
-                addressCountry: "IN",
-              },
+              url: "https://jyoshnainvisiblegrills.com",
+              telephone: ["+918106420981", "+919392372421"],
+              logo: "https://jyoshnainvisiblegrills.com/jyoshna-invisible-grills-logo.webp",
+               address: {
+          "@type": "PostalAddress",
+          addressLocality: "Visakhapatnam",
+          addressRegion: "Andhra Pradesh",
+          addressCountry: "IN",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 17.6868,
+          longitude: 83.2185,
+        },
+        openingHours: "Mo-Su 00:00-23:59",
+        areaServed: {
+          "@type": "City",
+          name: "Visakhapatnam",
+        },
+        priceRange: "20-500",
               sameAs: [
-                "https://www.facebook.com/jyoshnagrills",
-                "https://www.instagram.com/jyoshnagrills",
+                "https://www.facebook.com/jyoshnainvisiblegrills",
+                "https://www.instagram.com/jyoshnainvisiblegrills",
               ],
             }),
           }}

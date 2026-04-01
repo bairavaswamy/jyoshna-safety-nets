@@ -272,7 +272,7 @@ const scaleParallax = useTransform(scrollYProgress, [0, 1], [0.95, 1])
     </Link>
 
     <a
-      href="tel:+919876543210"
+      href="tel:+918106420981"
       className="text-xs px-5 py-2 rounded-full bg-yellow-400 text-black font-semibold hover:scale-110 transition inline-block"
     >
       Call Now
@@ -379,6 +379,7 @@ const scaleParallax = useTransform(scrollYProgress, [0, 1], [0.95, 1])
               Explore →
             </button>
 
+           <a href="tel:+918106420981">
             <button
   onMouseMove={(e) => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -392,7 +393,7 @@ const scaleParallax = useTransform(scrollYProgress, [0, 1], [0.95, 1])
   className="text-xs px-5 py-2 rounded-full bg-yellow-400 text-black font-semibold transition"
 >
   Call Now
-</button>
+</button></a>
           </div>
         </div>
 

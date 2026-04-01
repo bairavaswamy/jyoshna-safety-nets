@@ -16,7 +16,7 @@ export default function Page() {
         <main className="flex-1 ">
           <Navbar />
           <HeroCarousel />
-          <section className="py-16 px-4 md:px-8 lg:px-16 space-y-20">
+          <section className="py-16 md:px-8 lg:px-16 space-y-20">
             <ServicesCards />
             <About />
             <Services />

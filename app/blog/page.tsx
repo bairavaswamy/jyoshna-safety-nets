@@ -6,24 +6,25 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+
 /* BLOG DATA */
 const blogs = [
   {
-    slug: "invisible-grills-guide",
+    slug: "/services/invisible-grills",
     title: "Complete Guide to Invisible Grills for Modern Homes",
     category: "Grills",
     img: "/cards/invisble-grills-installation-near-me.webp",
     desc: "Learn how invisible grills improve safety while keeping your home stylish and open.",
   },
   {
-    slug: "balcony-safety-nets",
+    slug: "/services/balcony-safety-nets",
     title: "Why Balcony Safety Nets Are Essential for Apartments",
     category: "Safety Nets",
     img: "/cards/balcony-safety-nets-near-me.webp",
     desc: "Protect your family and pets with durable balcony safety net solutions.",
   },
   {
-    slug: "anti-bird-net",
+    slug: "/services/anti-bird-nets",
     title: "Best Anti Bird Net Solutions for Homes",
     category: "Bird Nets",
     img: "/cards/anti-bird-net.webp",
@@ -65,7 +66,7 @@ export default function Blog() {
 
         {/* FEATURED BLOG */}
         <section className="px-6 mb-20">
-          <Link href={`/blog/${featured.slug}`}>
+          <Link href={`${featured.slug}`}>
             <div className="grid md:grid-cols-2 gap-10 items-center bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition">
 
               {/* IMAGE */}
@@ -123,7 +124,7 @@ export default function Blog() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {filtered.map((b, i) => (
-              <Link key={i} href={`/blog/${b.slug}`}>
+              <Link key={i} href={`${b.slug}`}>
 
                 <div className="group">
 

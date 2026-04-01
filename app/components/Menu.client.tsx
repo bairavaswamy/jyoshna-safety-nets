@@ -244,12 +244,13 @@ export default function MenuClient({ open, onClose }: Props) {
           </div>
 
           {/* NAVIGATION */}
-          <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+          <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 hide-scrollbar">
             <nav className="flex flex-col gap-4 text-sm font-medium">
               {[
                 { name: "Home", href: "/" },
                 { name: "Projects", href: "/projects" },
                 { name: "About", href: "/about" },
+                { name: "Blogs", href: "/blog" },
                 { name: "Contact", href: "/contact" },
               ].map((item) => {
                 const active = pathname === item.href;
@@ -343,14 +344,14 @@ export default function MenuClient({ open, onClose }: Props) {
             <div className="flex gap-3">
               <button
                 onClick={() =>
-                  window.open("mailto:info@jyoshnagrills.com")
+                  window.open("mailto:jyoshnainvisiblegrills@gmail.com")
                 }
               >
                 <Mail size={16} />
               </button>
 
               <button
-                onClick={() => window.open("tel:+1234567890")}
+                onClick={() => window.open("tel:+918106420981")}
               >
                 <Phone size={16} />
               </button>

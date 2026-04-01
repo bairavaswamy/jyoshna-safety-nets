@@ -17,7 +17,7 @@ export default function PremiumCTA() {
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
 
-    buttonRef.current!.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+    buttonRef.current!.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px)`;
   };
 
   const resetMagnet = () => {
@@ -39,6 +39,9 @@ export default function PremiumCTA() {
     setTimeout(() => {
       setRipples((prev) => prev.filter((r) => r.id !== id));
     }, 600);
+
+    // 📞 CALL
+    window.location.href = "tel:+918106420981";
   };
 
   return (
@@ -49,23 +52,32 @@ export default function PremiumCTA() {
       onClick={handleClick}
       whileTap={{ scale: 0.95 }}
       aria-label="Get free quote"
-      className="relative group inline-flex items-center justify-center
-      px-10 py-4 rounded-full
-      font-semibold text-white
-      bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500
-      bg-[length:200%_200%]
-      animate-[gradientMove_6s_linear_infinite]
-      shadow-xl hover:shadow-2xl
-      overflow-hidden transition-all duration-300
-      will-change-transform"
-    >
+      className="
+        relative group inline-flex items-center justify-center
 
-      {/* shimmer */}
+        /* 📱 Mobile */
+        w-full sm:w-auto
+        px-6 py-3 text-sx
+
+        /* 💻 Desktop */
+        md:px-10 md:py-4 md:text-lg
+
+        rounded-full font-semibold text-white
+        bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500
+        bg-[length:200%_200%]
+        animate-[gradientMove_6s_linear_infinite]
+
+        shadow-lg md:shadow-xl hover:shadow-2xl
+        overflow-hidden transition-all duration-300
+        will-change-transform
+      "
+    >
+      {/* ✨ Shimmer */}
       <span className="absolute inset-0 overflow-hidden rounded-full">
         <span className="absolute -left-40 top-0 h-full w-40 bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_1.2s_linear]" />
       </span>
 
-      {/* ripple */}
+      {/* 💥 Ripple */}
       {ripples.map((r) => (
         <span
           key={r.id}
@@ -79,8 +91,8 @@ export default function PremiumCTA() {
         />
       ))}
 
-      {/* text */}
-      <span className="relative flex items-center gap-3 text-lg">
+      {/* 🔥 Text */}
+      <span className="flex items-center gap-2 md:gap-3 relative z-10">
         Get Free Quote
 
         <motion.span
@@ -91,9 +103,8 @@ export default function PremiumCTA() {
         </motion.span>
       </span>
 
-      {/* cursor glow */}
+      {/* 🌟 Glow */}
       <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition duration-500 bg-yellow-400/20 blur-xl" />
-
     </motion.button>
   );
 }

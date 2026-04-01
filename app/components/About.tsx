@@ -76,12 +76,12 @@ export default function About() {
         {/* FEATURE IMAGE */}
         <div className="relative h-[380px] group">
 
-          <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
+          <div className="absolute -left-7 md:left-0 lg:left-0 inset-0 rounded-2xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
             <Image
               src="/cards/invisble-grills-installation-near-me.webp"
               alt="Luxury balcony protected with invisible grills"
               fill
-              sizes="(max-width:768px) 100vw, 400px"
+              sizes="(max-width:760px) 100vw, 380px"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
              <p className="absolute bottom-0 left-0 w-full text-center text-white text-sm font-semibold bg-black/50 py-5 z-50">
@@ -93,7 +93,7 @@ export default function About() {
         </div>
 
         {/* CONTENT */}
-        <article className="relative p-10 bg-white/90 backdrop-blur-xl border border-yellow-400/40 shadow-[0_25px_50px_rgba(0,0,0,0.15)] rounded-2xl">
+        <article className="relative -left-4 md:-left-0 lg:-left-0 p-10 bg-white/90 backdrop-blur-xl border border-yellow-400/40 shadow-[0_25px_50px_rgba(0,0,0,0.15)] rounded-2xl">
 
           <span className="text-sm uppercase tracking-[4px] text-yellow-500 font-semibold">
             About Our Company

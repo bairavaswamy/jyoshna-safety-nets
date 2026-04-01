@@ -1,13 +1,18 @@
-"use client"
 
+"use client";
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Mail, Phone, MapPin, Clock } from "lucide-react"
 import Navbar from "../components/Navbar"
+import Link from "next/link"
+import Footer from "../components/Footer"
+
 
 export default function ContactPage(){
 
 const [loading,setLoading] = useState(false)
+
+
 
 const handleSubmit=(e:any)=>{
 e.preventDefault()
@@ -56,10 +61,11 @@ Our experts are ready to help you.
 <div className="grid md:grid-cols-4 gap-6 mb-20">
 
 {[
-{icon:<Phone size={22}/>,title:"Phone",text:"+91 98765 43210"},
-{icon:<Mail size={22}/>,title:"Email",text:"support@jyoshnasafetynets.com"},
-{icon:<MapPin size={22}/>,title:"Location",text:"Hyderabad, India"},
-{icon:<Clock size={22}/>,title:"Hours",text:"Mon–Sat 9AM – 10PM"}
+{icon:<Phone size={22}/>,title:"Phone",text:"+91 8106420981"},
+{icon:<Phone size={22}/>,title:"Phone",text:"+91 9392372421"},
+{icon:<Mail size={22}/>,title:"Email",text:"jyoshainvisiblegrills@gmail.com"},
+{icon:<MapPin size={22}/>,title:"Location",text:"Visakhapatnam, India"},
+{icon:<Clock size={22}/>,title:"Hours",text:"Mon–Sun 00 – 23:59"},
 ].map((item,i)=>(
 
 <motion.div
@@ -187,7 +193,7 @@ backdrop-blur-xl
 >
 
 <iframe
-src="https://maps.google.com/maps?q=Hyderabad&t=&z=13&ie=UTF8&iwloc=&output=embed"
+src="https://maps.google.com/maps?q=Visakhapatnam&t=&z=13&ie=UTF8&iwloc=&output=embed"
 className="w-full h-[430px] border-0"
 />
 
@@ -220,7 +226,7 @@ Balcony • Pigeon • Child Protection Nets
 </p>
 
 <a
-href="https://wa.me/919876543210"
+href="https://wa.me/918106420981"
 className="
 inline-block
 px-8 py-3
@@ -241,7 +247,7 @@ Contact on WhatsApp
 </div>
 
 </div>
-
+<Footer/>
 </div>
 
 )

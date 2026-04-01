@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Script from "next/script";
 import { ShieldCheck, Users, Award, Target } from "lucide-react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
   title: "About Jyoshna Safety Nets | Trusted Safety Nets Services",
@@ -19,11 +20,11 @@ export const metadata: Metadata = {
     title: "Jyoshna Safety Nets",
     description:
       "Top-rated safety nets installation company with 5000+ projects completed.",
-    url: "https://yourdomain.com/about",
+    url: "https://jyoshnainvisiblegrills.com/about",
     siteName: "Jyoshna Safety Nets",
     images: [
       {
-        url: "https://yourdomain.com/og-image.jpg",
+        url: "https://jyoshnainvisiblegrills.com/og-image.webp",
         width: 1200,
         height: 630,
       },
@@ -46,9 +47,9 @@ export default function AboutPage() {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             name: "Jyoshna Safety Nets",
-            image: "https://yourdomain.com/logo.png",
-            "@id": "https://yourdomain.com",
-            url: "https://yourdomain.com",
+            image: "https://jyoshnainvisiblegrills.com/jyoshna-invisible-grills-logo.webp",
+            "@id": "https://jyoshnainvisiblegrills.com",
+            url: "https://jyoshnainvisiblegrills.com",
             telephone: "+91-9876543210",
             address: {
               "@type": "PostalAddress",
@@ -56,12 +57,20 @@ export default function AboutPage() {
             },
             description:
               "Professional safety nets installation services including balcony nets, pigeon nets, invisible grills and child safety nets.",
-            areaServed: "India",
+            areaServed: [
+          "Visakhapatnam",
+          "Hyderabad",
+          "Bangalore"
+        ],
+        priceRange: "20-500",
             serviceType: [
               "Balcony Safety Nets",
-              "Pigeon Nets",
+              "Pigeon Safety Nets",
               "Invisible Grills",
               "Child Safety Nets",
+              "Anti Bird Nets",
+              "Monkey Safety Nets",
+              "Customized Safety Solutions"
             ],
           }),
         }}
@@ -198,6 +207,7 @@ export default function AboutPage() {
           </a>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

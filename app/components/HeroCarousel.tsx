@@ -106,7 +106,7 @@ export default function CinematicHeroV3() {
   }, [next, prev]);
 
   return (
-    <section className="relative -mt-28 h-[100vh] w-full overflow-hidden">
+    <section className="relative -mt-28 h-[80vh] md:h-[100vh] lg:h-[100vh] w-full overflow-hidden">
 
       {/* BACKGROUND SLIDES (NO UNMOUNT = NO BLINK) */}
       {slides.map((slide, i) => (
@@ -146,11 +146,11 @@ export default function CinematicHeroV3() {
       >
         <div className="max-w-3xl text-center text-white backdrop-blur-lg bg-white/5 border border-white/10 rounded-3xl p-12 shadow-2xl">
 
-          <p className="tracking-[4px] uppercase text-yellow-400 mb-4">
+          <p className="tracking-[4px] text-1xl md:text-2xl lg:text-2xl uppercase text-yellow-400 mb-4">
             {slides[index].subtitle}
           </p>
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+          <h1 className=" text-2xl md:text-5xl lg:text-5xl md:text-7xl font-bold mb-6">
             {slides[index].title}
           </h1>
 

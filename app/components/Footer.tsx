@@ -87,8 +87,8 @@ export default function Footer() {
   useEffect(() => {
     if (visitors === null) return;
     const interval = setInterval(() => {
-      setVisitors((v) => Math.max(2, (v ?? 3) + Math.floor(Math.random() * 3 - 1)));
-    }, 4000);
+      setVisitors((v) => Math.max(2, (v ?? 3) + Math.floor(Math.random() * 1 - 1)));
+    }, 40000);
     return () => clearInterval(interval);
   }, [visitors]);
 
@@ -155,10 +155,18 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
 
           {/* BRAND */}
-          <div className="space-y-5">
-            <h3 className="text-xl md:text-2xl font-bold text-white">Jyoshna Invisible Grills</h3>
+          <div className="space-y-4">
+            <h3 className="text-3xl md:text-2xl font-bold bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 bg-clip-text text-transparent">
+              Jyoshna Invisible Grills
+            </h3>
+
             <p className="text-sm text-neutral-400 leading-relaxed">
-              Premium invisible grill installations designed for safety, durability, and modern living.
+              Redefining balcony safety with sleek, high-strength invisible grills that blend seamlessly into modern architecture. 
+              We specialize in durable, rust-resistant installations that protect your loved ones without blocking your view.
+            </p>
+
+            <p className="text-sm text-neutral-500 leading-relaxed">
+              Trusted by homeowners for quality craftsmanship, precision fitting, and long-lasting safety solutions designed for today’s urban lifestyle.
             </p>
 
             {/* TRUST */}
@@ -190,16 +198,21 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-4">Areas We Serve</h4>
             <ul className="grid grid-cols-2 gap-2 text-sm h-48 lg:h-60 overflow-y-auto pr-2 hide-scrollbar">
-              {locations.map(area => (
-                <li key={area}>
-                  <Link
-                    href={`/services/invisible-grills/${area}`}
-                    className="text-neutral-400 hover:text-orange-500 transition"
-                  >
-                    {formatName(area)}
-                  </Link>
-                </li>
-              ))}
+              {locations.map(area => {
+                const slug = area
+                              .toLowerCase()
+                              .replace(/\s+/g, "-");
+                return (
+                  <li key={area}>
+                    <Link
+                      href={`/services/invisible-grills/${slug}`}
+                      className="text-neutral-400 hover:text-orange-500 transition"
+                    >
+                      {formatName(area)}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -207,9 +220,15 @@ export default function Footer() {
           <div className="space-y-5">
             <h4 className="text-white font-semibold">Contact</h4>
             <div className="space-y-3 text-sm">
-              <div className="flex items-center gap-2"><Phone size={16} className="text-orange-400" /> +91 90000 00000</div>
-              <div className="flex items-center gap-2"><Mail size={16} className="text-orange-400" /> info@jyoshnagrills.com</div>
-              <div className="flex items-center gap-2"><MapPin size={16} className="text-orange-400" /> Vizag, India</div>
+              <a href="tel:+918106420981" className="flex items-center gap-2">
+                <Phone size={16} className="text-orange-400" /> +91 8106420981
+              </a>
+              <a href="mailto:jyoshnainvisiblegrills@gmail.com" className="flex items-center gap-2">
+                <Mail size={16} className="text-orange-400" /> jyoshnainvisiblegrills@gmail.com
+              </a>
+              <div className="flex items-center gap-2">
+                <MapPin size={16} className="text-orange-400" /> Vizag, India
+              </div>
             </div>
           </div>
 
@@ -218,10 +237,12 @@ export default function Footer() {
         {/* BOTTOM */}
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-neutral-400">
           <p>© {year ?? 2026} Jyoshna Invisible Grills</p>
-          <p>Designed by <span className="text-orange-400">GBrix Tech Labs</span></p>
+          <Link href="https://gbrixtechlabs.com" target="_blank" rel="noopener noreferrer">
+            <p>Designed by <span className="text-orange-400">GBrix Tech Labs</span></p>
+          </Link>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <Link href="/privacy" className="hover:text-orange-500">Privacy</Link>
-            <Link href="/terms" className="hover:text-orange-500">Terms</Link>
+            <Link href="/" className="hover:text-orange-500">Privacy Policy</Link>
+            <Link href="/" className="hover:text-orange-500">Terms and Conditions</Link>
           </div>
         </div>
 
@@ -229,7 +250,7 @@ export default function Footer() {
 
       {/* WHATSAPP FLOAT */}
       <a
-        href="https://wa.me/919000000000"
+        href="https://wa.me/918106420981"
         className="fixed bottom-6 left-6 p-3 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-xl z-50 transition"
       >
         <MessageCircle size={22} />
