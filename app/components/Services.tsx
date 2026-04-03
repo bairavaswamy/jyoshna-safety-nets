@@ -165,7 +165,7 @@ const scaleParallax = useTransform(scrollYProgress, [0, 1], [0.95, 1])
   {/* HEADER */}
   <div className="relative z-10 text-center mb-16 px-6">
     <p className="uppercase tracking-[4px] text-yellow-400 text-sm mb-3">
-      JYOSHA
+      JYOSHNA
     </p>
 
     <h2 className="text-4xl md:text-5xl font-bold leading-tight">
