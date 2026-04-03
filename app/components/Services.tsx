@@ -229,7 +229,7 @@ const scaleParallax = useTransform(scrollYProgress, [0, 1], [0.95, 1])
 >
   {/* BRAND BADGE */}
   <div className="absolute top-4 right-4 z-20 text-[10px] px-3 py-1 rounded-full bg-white/10 backdrop-blur text-yellow-400 border border-yellow-400/40 tracking-widest">
-    JYOSHA
+    JYOSHNA
   </div>
 
   {/* IMAGE */}

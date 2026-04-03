@@ -250,7 +250,7 @@ export default function Footer() {
 
       {/* WHATSAPP FLOAT */}
       <a
-        href="https://wa.me/918106420981"
+        href="https://wa.me/91939237421"
         className="fixed bottom-6 left-6 p-3 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-xl z-50 transition"
       >
         <MessageCircle size={22} />

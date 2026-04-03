@@ -2,8 +2,8 @@
 const config = {
   siteUrl: "https://jyoshnainvisiblegrills.com",
   generateRobotsTxt: true,
-
-  // 👇 important for SEO
+  
+// important for SEO
   changefreq: "daily",
   priority: 0.7,
 
