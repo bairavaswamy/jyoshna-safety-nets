@@ -262,7 +262,7 @@ export default async function Page({ params }: Props) {
                 </button>
 
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+918106420981"
                   className="px-8 py-3 rounded-lg border border-white/10 hover:bg-white/10 transition"
                 >
                   Call Now
