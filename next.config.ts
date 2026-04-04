@@ -3,6 +3,7 @@
 const nextConfig = {
   reactStrictMode: true,
   output: "export",
+  
   images: {
     unoptimized: true,
   },
@@ -13,6 +14,7 @@ const nextConfig = {
         ? { exclude: ["error", "warn"] }
         : false,
   },
+     trailingSlash: true,
 };
 
 module.exports = nextConfig;
