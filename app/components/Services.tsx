@@ -28,13 +28,13 @@ const services = [
     tag: "Most Popular",
   },
   {
-    title: "Balcony Safety Grills",
+    title: "Balcony Safety Nets",
     image: images[1],
     desc: "Prevent accidental falls in high-rise apartments with our invisible balcony protection.",
     tag: "Safety First",
   },
   {
-    title: "Transparent Balcony Nets",
+    title: "Pigeon Safety Nets",
     image: images[2],
     desc: "Crystal-clear safety nets that provide protection without affecting your balcony view.",
     tag: "Premium",
@@ -46,19 +46,19 @@ const services = [
     tag: "Hygienic",
   },
   {
-    title: "Duct Area Safety",
+    title: "Duct Area Safety Nets",
     image: images[4],
     desc: "Secure open shafts and duct areas in your building with durable safety nets.",
     tag: "Industrial",
   },
   {
-    title: "General Safety Nets",
+    title: "Children Safety Nets",
     image: images[5],
     desc: "Strong and durable nets for balconies, windows, and open areas.",
     tag: "Durable",
   },
   {
-    title: "Window Safety Nets",
+    title: "Windows Safety Nets",
     image: images[6],
     desc: "Protect windows from birds, pets, and children with strong net solutions.",
     tag: "Secure",
@@ -265,7 +265,7 @@ const scaleParallax = useTransform(scrollYProgress, [0, 1], [0.95, 1])
   <div className="flex items-center justify-between mt-5">
     
     <Link
-      href="/services"
+      href={`/services/${service.title.toLowerCase().replace(/\s+/g, "-")}`}
       className="text-yellow-400 text-sm font-semibold hover:underline"
     >
       Explore →
@@ -350,7 +350,7 @@ const scaleParallax = useTransform(scrollYProgress, [0, 1], [0.95, 1])
 
         {/* JYOSHA BADGE */}
         <div className="absolute top-3 right-3 z-20 text-[10px] px-3 py-1 rounded-full bg-white/10 backdrop-blur text-yellow-400 border border-yellow-400/40 tracking-widest">
-          JYOSHA
+          JYOSHNA
         </div>
 
         {/* IMAGE */}
@@ -375,9 +375,12 @@ const scaleParallax = useTransform(scrollYProgress, [0, 1], [0.95, 1])
           </p>
 
           <div className="flex justify-between items-center mt-5">
-            <button className="text-yellow-400 text-sm font-semibold">
-              Explore →
-            </button>
+           <Link
+      href={`/services/${services[current].title.toLowerCase().replace(/\s+/g, "-")}`}
+      className="text-yellow-400 text-sm font-semibold hover:underline"
+    >
+      Explore →
+    </Link>
 
            <a href="tel:+918106420981">
             <button

@@ -26,28 +26,47 @@ export default function FloatingButtons() {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4">
 
-      {/* Scroll To Top Button */}
+      {/* 🔼 Scroll To Top */}
       <button
         onClick={scrollToTop}
-        className={`group backdrop-blur-md bg-white/70 hover:bg-white text-black p-4 rounded-full shadow-xl transition-all duration-300 transform hover:scale-110 ${
-          showTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
-        }`}
         aria-label="Scroll to top"
+        className={`group backdrop-blur-md bg-white/80 hover:bg-white 
+        text-black p-4 rounded-full shadow-xl 
+        transition-all duration-300 transform hover:scale-110 ${
+          showTop
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10 pointer-events-none"
+        }`}
       >
         <HiOutlineArrowUp className="text-xl transition-transform duration-300 group-hover:-translate-y-1" />
       </button>
 
-      {/* Call Button */}
-      <a
-        href="tel:+918106420981"
-        className="group relative bg-gradient-to-r from-green-600 to-emerald-500 hover:from-emerald-500 hover:to-green-600 text-white p-4 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 active:scale-95"
-        aria-label="Call Now"
-      >
-        <FiPhoneCall className="text-xl transition-transform duration-300 group-hover:rotate-12" />
+      {/* 📞 Call Button */}
+      <div className="relative group">
+        {/* Tooltip */}
+        <div className="absolute right-16 top-1/2 -translate-y-1/2 
+          bg-black text-white text-xs px-3 py-1 rounded-lg 
+          opacity-0 group-hover:opacity-100 
+          transition whitespace-nowrap">
+          Call us now 📞
+        </div>
 
-        {/* Glow Effect */}
-        <span className="absolute inset-0 rounded-full bg-green-400 opacity-20 blur-xl group-hover:opacity-40 transition duration-300"></span>
-      </a>
+        {/* Button */}
+        <a
+          href="tel:+918106420981"
+          aria-label="Call Now"
+          className="relative flex items-center justify-center 
+          w-14 h-14 rounded-full 
+          bg-red-600 hover:bg-red-700 
+          shadow-2xl hover:scale-110 
+          transition-all duration-300"
+        >
+          {/* Pulse Ring */}
+          <span className="absolute w-14 h-14 rounded-full bg-red-400 animate-ping opacity-30"></span>
+
+          <FiPhoneCall size={26} className="text-white relative z-10" />
+        </a>
+      </div>
     </div>
   );
 }

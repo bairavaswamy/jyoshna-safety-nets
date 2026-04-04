@@ -16,6 +16,14 @@ const slugToTitle = (slug: string) => {
     .join(" ");
 }
 
+
+const toSlug = (value: string) =>
+  value
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+
 export default function DropdownClient() {
 
   const [open, setOpen] = useState(false);
@@ -126,7 +134,7 @@ export default function DropdownClient() {
 
                         <Link
                           key={`${slugToTitle(service)}-${locationSlug(location)}-${index}`}
-                          href={`/services/${service}/${location}`}
+                          href={`/services/${service}/${toSlug(location)}`}
                           className="block px-5 py-3 text-sm hover:bg-orange-50 text-gray-700 dark:hover:bg-gray-700 transition"
                         >
                           {slugToTitle(service)} in {slugToTitle(location)}

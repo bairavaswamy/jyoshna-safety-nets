@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import { services } from "./constants/services";
 import { locations } from "./constants/locations";
+import { FaWhatsapp } from "react-icons/fa";
 
 /* ---------- FORMAT ---------- */
 const formatName = (slug: string): string =>
@@ -110,6 +111,23 @@ export default function Footer() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [handleScroll]);
 
+  const socialLinks = [
+  {
+    icon: Facebook,
+    href: "https://www.facebook.com/share/1bcXPJGhhL/",
+    label: "Facebook",
+  },
+  {
+    icon: Instagram,
+    href: "https://www.instagram.com/jyoshnainvisiblegrills?igsh=MTQ0dTllanZlZWozdA==",
+    label: "Instagram",
+  },
+  {
+    icon: Twitter,
+    href: "https://x.com/jyoshnainvisibl",
+    label: "Twitter",
+  },
+];
   // const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
@@ -178,12 +196,17 @@ export default function Footer() {
 
             {/* SOCIAL */}
             <div className="flex gap-3 mt-3">
-              {[Facebook, Instagram, Twitter].map((Icon, i) => (
+              {socialLinks.map(({ icon: Icon, href, label }, i) => (
                 <motion.a
                   key={i}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
                   whileHover={{ scale: 1.1, y: -2 }}
-                  className="p-2 bg-white/5 border border-white/10 rounded-lg hover:bg-orange-500 hover:text-white transition"
-                  href="#"
+                  className="p-2 bg-white/5 border border-white/10 rounded-lg 
+                            hover:bg-orange-500 hover:text-white 
+                            transition duration-300"
                 >
                   <Icon size={18} />
                 </motion.a>
@@ -248,13 +271,26 @@ export default function Footer() {
 
       </div>
 
-      {/* WHATSAPP FLOAT */}
-      <a
-        href="https://wa.me/91939237421"
-        className="fixed bottom-6 left-6 p-3 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-xl z-50 transition"
-      >
-        <MessageCircle size={22} />
-      </a>
+            <div className="fixed bottom-8 left-6 z-50 group">
+            {/* Tooltip */}
+            <div className="absolute left-16 bottom-6 bg-black text-white text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+              Chat with us on WhatsApp 👋
+            </div>
+
+            {/* Button */}
+            <a
+              href="https://wa.me/9392372421"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat on WhatsApp"
+              className="flex items-center justify-center w-14 h-14 rounded-full 
+                        bg-green-500 hover:bg-green-600 
+                        shadow-2xl hover:scale-110 
+                        transition-all duration-300 animate-bounce"
+            >
+              <FaWhatsapp size={28} className="text-white" />
+            </a>
+          </div>
 
       {/* VISITOR COUNTER */}
       {visitors !== null && (

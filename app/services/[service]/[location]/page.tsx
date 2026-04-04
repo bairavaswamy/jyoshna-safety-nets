@@ -49,40 +49,47 @@ const slugToTitle = (slug: string) =>
     .map((word) => word[0].toUpperCase() + word.slice(1))
     .join(" ");
 
-export const dynamicParams = false;
+const toSlug = (value: string) =>
+  value
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+
 
 export async function generateStaticParams() {
+  const uniqueLocations = Array.from(
+    new Set(locations.map((l) => toSlug(l)))
+  );
+
   return services.flatMap((service) =>
-    locations.map((location) => ({
-      service,
-      location: locationSlug(location),
+    uniqueLocations.map((location) => ({
+      service: toSlug(service),
+      location,
     }))
   );
 }
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   let { service, location } = await params;
-   location = slugToTitle(location);
-  const serviceTitle = service
-    .split("-")
-    .map((w) => w[0].toUpperCase() + w.slice(1))
-    .join(" ");
 
-  const title = `Jyoshna ${serviceTitle} in ${location} | Free Inspection & Best Price`;
+  const locationTitle = slugToTitle(location);
+  const serviceTitle = slugToTitle(service);
 
-  const description = `Looking for ${serviceTitle.toLowerCase()} in ${location}? Jyoshna Invisible Grills offers professional installation with high-quality materials, affordable pricing, and expert service. Call now for free inspection.`;
+  const title = `Jyoshna ${serviceTitle} in ${locationTitle} | Free Inspection & Best Price`;
+
+  const description = `Looking for ${serviceTitle.toLowerCase()} in ${locationTitle}? Jyoshna Invisible Grills offers professional installation with high-quality materials, affordable pricing, and expert service. Call now for free inspection.`;
 
   return {
     title,
     description,
 
     keywords: [
-      `${serviceTitle} in ${location}`,
+      `${serviceTitle} in ${locationTitle}`,
       `${serviceTitle} near me`,
-      `Jyoshna Invisible Grills ${location}`,
-      `balcony safety nets ${location}`,
-      `invisible grills installation ${location}`,
-      `best ${serviceTitle.toLowerCase()} ${location}`,
+      `Jyoshna Invisible Grills ${locationTitle}`,
+      `balcony safety nets ${locationTitle}`,
+      `invisible grills installation ${locationTitle}`,
+      `best ${serviceTitle.toLowerCase()} ${locationTitle}`,
     ],
 
     openGraph: {
@@ -117,7 +124,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const { service, location } = await params;
 const serviceTitle = slugToTitle(service);
-  const isValidService = services.includes(service);
+ 
+const isValidService = services.some(
+  (s) => s.toLowerCase() === service.toLowerCase()
+);
 
 const isValidLocation = locations.some(
   (loc) => locationSlug(loc) === location.toLowerCase()
@@ -165,11 +175,13 @@ if (!isValidService || !isValidLocation) {
       seededIndex(service + location + "img", serviceImages.length)
     ];
 
-  // ✅ RANDOM NEARBY LOCATIONS
-  const nearby = [...locations]
-    .filter((l) => l !== location)
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 6);
+ const nearby = locations
+  .map((l) => ({
+    name: l,
+    slug: locationSlug(l),
+  }))
+  .filter((l) => l.slug !== location)
+  .slice(0, 6);
 
     const schema = {
   "@context": "https://schema.org",
@@ -760,7 +772,7 @@ const breadcrumbSchema = {
             {nearby.map((area, i) => (
               <Link
                 key={i}
-                href={`/services/${service}/${area}`}
+                href={`/services/${service}/${area.slug}`}
                 className="
                   group
                   p-4
@@ -780,7 +792,7 @@ const breadcrumbSchema = {
                     {serviceTitle}
                   </p>
                   <h3 className="font-semibold text-white">
-                    {area}
+                    {area.name}
                   </h3>
                 </div>
 

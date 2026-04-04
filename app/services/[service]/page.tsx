@@ -49,13 +49,18 @@ const slugToTitle = (slug: string) =>
 
 export const dynamicParams = false;
 
-// ✅ ONLY SERVICES
+const toSlug = (value: string) =>
+  value
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+
 export async function generateStaticParams() {
   return services.map((service) => ({
-    service,
+    service: toSlug(service),
   }));
 }
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { service } = await params;
 
