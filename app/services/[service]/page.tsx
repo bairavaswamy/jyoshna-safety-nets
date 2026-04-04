@@ -56,6 +56,9 @@ const toSlug = (value: string) =>
     .replace(/\s+/g, "-")
     .replace(/[^a-z0-9-]/g, "");
 
+const PHONE_NUMBER = "+918106420981";
+const WHATSAPP_NUMBER = "919392372421"; // without +
+
 export async function generateStaticParams() {
   return services.map((service) => ({
     service: toSlug(service),
@@ -257,9 +260,16 @@ export default async function Page({ params }: Props) {
               </div>
 
               <div className="flex flex-wrap gap-4 mt-8">
-                <button className="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-lg font-medium shadow-lg shadow-orange-500/30 transition">
-                  Get Free Inspection
-                </button>
+                <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                  `Hi, I need a free inspection for ${serviceTitle} in ${location}.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-lg font-medium shadow-lg shadow-orange-500/30 transition inline-block"
+              >
+                Get Free Inspection
+              </a>
 
                 <a
                   href="tel:+918106420981"
@@ -410,18 +420,16 @@ export default async function Page({ params }: Props) {
                     </p>
         
                     {/* CTA */}
-                    <button className="
-                      w-full
-                      bg-orange-500
-                      hover:bg-orange-600
-                      py-3
-                      rounded-lg
-                      font-medium
-                      shadow-lg shadow-orange-500/30
-                      transition
-                    ">
+                    <a
+                      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                        `Hi, I need a quote for ${serviceTitle} in ${location}.`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-lg font-medium shadow-lg shadow-orange-500/30 transition inline-block text-center"
+                    >
                       Get Free Quote
-                    </button>
+                    </a>
         
                     {/* EXTRA TRUST */}
                     <p className="text-xs text-neutral-500 mt-4">
@@ -499,16 +507,16 @@ export default async function Page({ params }: Props) {
                         Get the best {serviceTitle.toLowerCase()} service in {location} today.
                       </p>
         
-                      <button className="
-                        bg-orange-500
-                        hover:bg-orange-600
-                        px-8 py-3
-                        rounded-lg
-                        font-medium
-                        transition-colors
-                      ">
-                        Get Free Quote
-                      </button>
+                    <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                    `Hi, I need a quote for ${serviceTitle} in ${location}.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-lg font-medium shadow-lg shadow-orange-500/30 transition inline-block text-center"
+                >
+                  Get Free Quote
+                </a>
                     </div>
         
                   </div>
@@ -603,18 +611,16 @@ export default async function Page({ params }: Props) {
                     </div>
         
                     {/* CTA */}
-                    <div className="text-center mt-14">
-                      <button className="
-                        bg-orange-500
-                        hover:bg-orange-600
-                        px-8 py-3
-                        rounded-lg
-                        font-medium
-                        transition-colors
-                      ">
-                        Get Free Inspection
-                      </button>
-                    </div>
+                    <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                    `Hi, I would like to book a free inspection for ${serviceTitle} in ${location}.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-lg font-medium shadow-lg shadow-orange-500/30 transition inline-block"
+                >
+                  Get Free Inspection
+                </a>
         
                   </div>
                 </section>
@@ -663,9 +669,12 @@ export default async function Page({ params }: Props) {
             {cta({ location })}
           </h2>
 
-          <button className="mt-6 bg-orange-500 px-8 py-3 rounded-lg font-semibold shadow-lg shadow-orange-500/40 hover:bg-orange-600 transition">
+            <a
+            href={`tel:${PHONE_NUMBER}`}
+            className="mt-6 bg-orange-500 px-8 py-3 rounded-lg font-semibold shadow-lg shadow-orange-500/40 hover:bg-orange-600 transition inline-block"
+          >
             Call Now
-          </button>
+          </a>
         </section>
       </main>
 
