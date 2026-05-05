@@ -1,16 +1,14 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
-  ArrowUp,
   Mail,
   Phone,
   MapPin,
   Facebook,
   Instagram,
   Twitter,
-  MessageCircle,
   Star,
 } from "lucide-react";
 import Link from "next/link";
@@ -26,13 +24,14 @@ const formatName = (slug: string): string =>
 function FooterServices() {
   return (
     <div className="space-y-4">
-      <h4 className="text-white font-semibold mb-2">Services</h4>
-      <ul className="space-y-2 max-h-52 overflow-y-auto pr-2 hide-scrollbar">
+      <h4 className="mb-2 font-semibold text-white">Services</h4>
+
+      <ul className="hide-scrollbar max-h-52 space-y-2 overflow-y-auto pr-2">
         {services.map((service) => (
           <li key={service}>
             <Link
               href={`/services/${service}`}
-              className="text-neutral-400 hover:text-orange-500 transition-colors duration-200"
+              className="text-neutral-400 transition-colors duration-200 hover:text-orange-500"
             >
               {formatName(service)}
             </Link>
@@ -43,35 +42,55 @@ function FooterServices() {
   );
 }
 
-/* ---------- PREMIUM CTA BUTTON ---------- */
-function PremiumCTA() {
-  const buttonRef = useRef<HTMLButtonElement>(null);
+/* ---------- PARTNER WEBSITES ---------- */
+function PartnerWebsites() {
+  const partners = [
+    {
+      name: "Rohini Invisible Grills",
+      href: "https://rohiniinvisiblegrills.com",
+      description:
+        "A trusted partner for premium invisible grills, balcony safety grills, window grills, and modern home safety installations with a clean, view-friendly finish.",
+    },
+    {
+      name: "Eversafe Safety Nets",
+      href: "https://eversafesafetynets.com",
+      description:
+        "Professional safety net service provider for balcony safety nets, pigeon nets, children safety nets, duct area nets, and terrace safety net solutions.",
+    },
+    {
+  name: "Srinu Vasulu Safety Nets",
+  href: "https://www.srinuvasulusafetynets.com",
+  description:
+    "Reliable safety net installation partner for balcony safety nets, pigeon protection nets, children safety nets, duct nets, terrace nets, and apartment safety solutions.",
+},
+     
+  ];
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!buttonRef.current) return;
-    const rect = buttonRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    buttonRef.current.style.transform = `translate(${x * 0.02}px, ${y * 0.02}px)`;
-  };
+  return (
+    <div className="space-y-5">
+      <h4 className="font-semibold text-white">Partner Websites</h4>
 
-  const resetMagnet = () => {
-    if (!buttonRef.current) return;
-    buttonRef.current.style.transform = "translate(0px, 0px)";
-  };
+      <div className="space-y-4 text-sm">
+        {partners.map((partner) => (
+          <Link
+            key={partner.href}
+            href={partner.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-orange-500/40 hover:bg-orange-500/10"
+          >
+            <span className="block font-semibold text-orange-400">
+              {partner.name}
+            </span>
 
-  // return (
-  //   <motion.button
-  //     ref={buttonRef}
-  //     onMouseMove={handleMouseMove}
-  //     onMouseLeave={resetMagnet}
-  //     whileHover={{ scale: 1.05 }}
-  //     whileTap={{ scale: 0.95 }}
-  //     className="px-10 py-4 bg-yellow-400 text-black font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
-  //   >
-  //     Get Free Quote
-  //   </motion.button>
-  // );
+            <span className="mt-1 block leading-relaxed text-neutral-400">
+              {partner.description}
+            </span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 /* ---------- FOOTER ---------- */
@@ -81,132 +100,125 @@ export default function Footer() {
   const [visitors, setVisitors] = useState<number | null>(null);
 
   /* ---------- YEAR ---------- */
-  useEffect(() => setYear(new Date().getFullYear()), []);
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   /* ---------- VISITOR COUNTER ---------- */
-  useEffect(() => setVisitors(3), []);
+  useEffect(() => {
+    setVisitors(3);
+  }, []);
+
   useEffect(() => {
     if (visitors === null) return;
+
     const interval = setInterval(() => {
-      setVisitors((v) => Math.max(2, (v ?? 3) + Math.floor(Math.random() * 1 - 1)));
+      setVisitors((value) =>
+        Math.max(2, (value ?? 3) + Math.floor(Math.random() * 1 - 1))
+      );
     }, 40000);
+
     return () => clearInterval(interval);
   }, [visitors]);
 
   /* ---------- SCROLL PROGRESS ---------- */
   const handleScroll = useCallback(() => {
-    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const total =
+      document.documentElement.scrollHeight - window.innerHeight;
+
+    if (total <= 0) {
+      setScrollProgress(0);
+      return;
+    }
+
     setScrollProgress((window.scrollY / total) * 100);
   }, []);
 
-  const scrollTop = ():void => {
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
   useEffect(() => {
     const onScroll = () => requestAnimationFrame(handleScroll);
+
     window.addEventListener("scroll", onScroll, { passive: true });
+    handleScroll();
+
     return () => window.removeEventListener("scroll", onScroll);
   }, [handleScroll]);
 
   const socialLinks = [
-  {
-    icon: Facebook,
-    href: "https://www.facebook.com/share/1bcXPJGhhL/",
-    label: "Facebook",
-  },
-  {
-    icon: Instagram,
-    href: "https://www.instagram.com/jyoshnainvisiblegrills?igsh=MTQ0dTllanZlZWozdA==",
-    label: "Instagram",
-  },
-  {
-    icon: Twitter,
-    href: "https://x.com/jyoshnainvisibl",
-    label: "Twitter",
-  },
-];
-  // const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+    {
+      icon: Facebook,
+      href: "https://www.facebook.com/share/1bcXPJGhhL/",
+      label: "Facebook",
+    },
+    {
+      icon: Instagram,
+      href: "https://www.instagram.com/jyoshnainvisiblegrills?igsh=MTQ0dTllanZlZWozdA==",
+      label: "Instagram",
+    },
+    {
+      icon: Twitter,
+      href: "https://x.com/jyoshnainvisibl",
+      label: "Twitter",
+    },
+  ];
 
   return (
-    <footer className="relative bg-neutral-950 text-neutral-300 pt-20 pb-14 border-t border-white/10 overflow-hidden">
-
+    <footer className="relative overflow-hidden border-t border-white/10 bg-neutral-950 pb-14 pt-20 text-neutral-300">
       {/* SCROLL PROGRESS */}
-      <div className="fixed bottom-0 left-0 w-full h-1 bg-neutral-800 z-50">
+      <div className="fixed bottom-0 left-0 z-50 h-1 w-full bg-neutral-800">
         <motion.div
-          className="h-full bg-orange-500 origin-left"
+          className="h-full origin-left bg-orange-500"
           style={{ scaleX: scrollProgress / 100 }}
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6">
-
-        {/* CTA BANNER */}
-        {/* <div className="mb-16 p-8 rounded-2xl bg-gradient-to-r from-orange-500/10 to-indigo-500/10 border border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div>
-            <h2 className="text-2xl md:text-3xl font-semibold text-white">
-              Protect Your Balcony Today
-            </h2>
-            <p className="text-sm text-neutral-400 mt-1">
-              Free inspection available in your area.
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <a
-              href="tel:+919000000000"
-              className="px-6 py-3 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-medium transition"
-            >
-              Call Now
-            </a>
-            <a
-              href="https://wa.me/919000000000"
-              className="px-6 py-3 rounded-lg bg-green-500 hover:bg-green-600 text-white font-medium transition"
-            >
-              WhatsApp
-            </a>
-          </div>
-        </div> */}
-
+      <div className="mx-auto max-w-7xl px-6">
         {/* GRID */}
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           {/* BRAND */}
           <div className="space-y-4">
-            <h3 className="text-3xl md:text-2xl font-bold bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 bg-clip-text text-transparent">
+            <h3 className="bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 bg-clip-text text-3xl font-bold text-transparent md:text-2xl">
               Jyoshna Invisible Grills
             </h3>
 
-            <p className="text-sm text-neutral-400 leading-relaxed">
-              Redefining balcony safety with sleek, high-strength invisible grills that blend seamlessly into modern architecture. 
-              We specialize in durable, rust-resistant installations that protect your loved ones without blocking your view.
+            <p className="text-sm leading-relaxed text-neutral-400">
+              Redefining balcony safety with sleek, high-strength invisible
+              grills that blend seamlessly into modern architecture. We
+              specialize in durable, rust-resistant installations that protect
+              your loved ones without blocking your view.
             </p>
 
-            <p className="text-sm text-neutral-500 leading-relaxed">
-              Trusted by homeowners for quality craftsmanship, precision fitting, and long-lasting safety solutions designed for today’s urban lifestyle.
+            <p className="text-sm leading-relaxed text-neutral-500">
+              Trusted by homeowners for quality craftsmanship, precision
+              fitting, and long-lasting safety solutions designed for today’s
+              urban lifestyle.
             </p>
 
             {/* TRUST */}
-            <div className="flex flex-wrap gap-2 text-xs mt-2">
-              <span className="px-3 py-1 bg-orange-500/10 border border-orange-500/30 rounded-full">10+ Years Experience</span>
-              <span className="px-3 py-1 bg-orange-500/10 border border-orange-500/30 rounded-full">2800+ Installations</span>
-              <span className="px-3 py-1 bg-orange-500/10 border border-orange-500/30 rounded-full flex items-center gap-1"><Star size={12} /> 4.9 Rating</span>
+            <div className="mt-2 flex flex-wrap gap-2 text-xs">
+              <span className="rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1">
+                10+ Years Experience
+              </span>
+
+              <span className="rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1">
+                2800+ Installations
+              </span>
+
+              <span className="flex items-center gap-1 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1">
+                <Star size={12} /> 4.9 Rating
+              </span>
             </div>
 
             {/* SOCIAL */}
-            <div className="flex gap-3 mt-3">
-              {socialLinks.map(({ icon: Icon, href, label }, i) => (
+            <div className="mt-3 flex gap-3">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
                 <motion.a
-                  key={i}
+                  key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
                   whileHover={{ scale: 1.1, y: -2 }}
-                  className="p-2 bg-white/5 border border-white/10 rounded-lg 
-                            hover:bg-orange-500 hover:text-white 
-                            transition duration-300"
+                  className="rounded-lg border border-white/10 bg-white/5 p-2 transition duration-300 hover:bg-orange-500 hover:text-white"
                 >
                   <Icon size={18} />
                 </motion.a>
@@ -219,17 +231,17 @@ export default function Footer() {
 
           {/* AREAS */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Areas We Serve</h4>
-            <ul className="grid grid-cols-2 gap-2 text-sm h-48 lg:h-60 overflow-y-auto pr-2 hide-scrollbar">
-              {locations.map(area => {
-                const slug = area
-                              .toLowerCase()
-                              .replace(/\s+/g, "-");
+            <h4 className="mb-4 font-semibold text-white">Areas We Serve</h4>
+
+            <ul className="hide-scrollbar grid h-48 grid-cols-2 gap-2 overflow-y-auto pr-2 text-sm lg:h-60">
+              {locations.map((area) => {
+                const slug = area.toLowerCase().replace(/\s+/g, "-");
+
                 return (
                   <li key={area}>
                     <Link
                       href={`/services/invisible-grills/${slug}`}
-                      className="text-neutral-400 hover:text-orange-500 transition"
+                      className="text-neutral-400 transition hover:text-orange-500"
                     >
                       {formatName(area)}
                     </Link>
@@ -239,85 +251,89 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* PARTNER WEBSITES */}
+          <PartnerWebsites />
+
           {/* CONTACT */}
           <div className="space-y-5">
-            <h4 className="text-white font-semibold">Contact</h4>
+            <h4 className="font-semibold text-white">Contact</h4>
+
             <div className="space-y-3 text-sm">
-              <a href="tel:+918106420981" className="flex items-center gap-2">
-                <Phone size={16} className="text-orange-400" /> +91 8106420981
+              <a
+                href="tel:+918106420981"
+                className="flex items-center gap-2 transition hover:text-orange-500"
+              >
+                <Phone size={16} className="text-orange-400" />
+                +91 8106420981
               </a>
-              <a href="mailto:jyoshnainvisiblegrills@gmail.com" className="flex items-center gap-2">
-                <Mail size={16} className="text-orange-400" /> jyoshnainvisiblegrills@gmail.com
+
+              <a
+                href="mailto:jyoshnainvisiblegrills@gmail.com"
+                className="flex items-center gap-2 transition hover:text-orange-500"
+              >
+                <Mail size={16} className="text-orange-400" />
+                jyoshnainvisiblegrills@gmail.com
               </a>
+
               <div className="flex items-center gap-2">
-                <MapPin size={16} className="text-orange-400" /> Vizag, India
+                <MapPin size={16} className="text-orange-400" />
+                Vizag, India
               </div>
             </div>
           </div>
-
         </div>
 
         {/* BOTTOM */}
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-neutral-400">
+        <div className="mt-16 flex flex-col items-center justify-between border-t border-white/10 pt-8 text-sm text-neutral-400 md:flex-row">
           <p>© {year ?? 2026} Jyoshna Invisible Grills</p>
-          <Link href="https://gbrixtechlabs.com" target="_blank" rel="noopener noreferrer">
-            <p>Designed by <span className="text-orange-400">GBrix Tech Labs</span></p>
+
+          <Link
+            href="https://gbrixtechlabs.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 md:mt-0"
+          >
+            <p>
+              Designed by{" "}
+              <span className="text-orange-400">GBrix Tech Labs</span>
+            </p>
           </Link>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <Link href="/" className="hover:text-orange-500">Privacy Policy</Link>
-            <Link href="/" className="hover:text-orange-500">Terms and Conditions</Link>
+
+          <div className="mt-4 flex gap-6 md:mt-0">
+            <Link href="/" className="hover:text-orange-500">
+              Privacy Policy
+            </Link>
+
+            <Link href="/" className="hover:text-orange-500">
+              Terms and Conditions
+            </Link>
           </div>
         </div>
-
       </div>
 
-            <div className="fixed bottom-8 left-6 z-50 group">
-            {/* Tooltip */}
-            <div className="absolute left-16 bottom-6 bg-black text-white text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
-              Chat with us on WhatsApp 👋
-            </div>
+      {/* WHATSAPP BUTTON */}
+      <div className="group fixed bottom-8 left-6 z-50">
+        <div className="absolute bottom-6 left-16 whitespace-nowrap rounded-lg bg-black px-3 py-1 text-xs text-white opacity-0 transition group-hover:opacity-100">
+          Chat with us on WhatsApp 👋
+        </div>
 
-            {/* Button */}
-            <a
-              href="https://wa.me/9392372421"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Chat on WhatsApp"
-              className="flex items-center justify-center w-14 h-14 rounded-full 
-                        bg-green-500 hover:bg-green-600 
-                        shadow-2xl hover:scale-110 
-                        transition-all duration-300 animate-bounce"
-            >
-              <FaWhatsapp size={28} className="text-white" />
-            </a>
-          </div>
+        <a
+          href="https://wa.me/9392372421"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          className="flex h-14 w-14 animate-bounce items-center justify-center rounded-full bg-green-500 shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-green-600"
+        >
+          <FaWhatsapp size={28} className="text-white" />
+        </a>
+      </div>
 
       {/* VISITOR COUNTER */}
       {visitors !== null && (
-        <div className="fixed bottom-24 left-6 text-xs bg-black/80 border border-white/10 px-3 py-2 rounded-lg shadow-md">
+        <div className="fixed bottom-24 left-6 rounded-lg border border-white/10 bg-black/80 px-3 py-2 text-xs shadow-md">
           {visitors} people viewing
         </div>
       )}
-
-      {/* BACK TO TOP */}
-      {/* <motion.button
-        onClick={scrollTop}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="fixed bottom-6 right-6 p-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full shadow-xl transition"
-      >
-        <ArrowUp size={20} />
-      </motion.button> */}
-
-       {/* <motion.button
-        onClick={scrollTop}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
- className="fixed bottom-6 right-6 p-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full shadow-xl transition"
-        aria-label="Back to top"
-      >
-     <ArrowUp size={20} />
-      </motion.button> */}
     </footer>
   );
 }
