@@ -1,84 +1,69 @@
 import Image from "next/image";
 import Link from "next/link";
-const images = [
-  "/cards/invisble-grills-installation-near-me.webp",
-  "/cards/balcony-safety-nets-near-me.webp",
-  "/cards/transparant-balcony-safety-nets.webp",
-  "/cards/anti-bird-net.webp",
-  "/cards/duct-area-safety-nets-near-me.webp",
-  "/cards/safety-nets.webp",
-  "/cards/window-safety-nets.webp",
-  "/cards/transparant-balcony-safety-nets.webp",
-  "/cards/mokey-safety-nets-installation.webp",
-  "/cards/sports-nets-instllation.webp",
-  "/cards/balcony-safety-nets-near-me.webp",
-];
+import { ArrowUpRight } from "lucide-react";
+import { serviceCatalog } from "./constants/serviceCatalog";
 
-export const servicesData: Record<string, string> = {
-  "invisible-grills": "Invisible Grills",
-  "balcony-safety-nets": "Balcony Safety Nets",
-  "pigeon-safety-nets": "Pigeon Safety Nets",
-  "anti-bird-nets": "Anti Bird Nets",
-  "duct-area-safety-nets": "Duct Area Safety Nets",
-  "safety-net-installation": "Safety Net Installation",
-  "windows-safety-nets": "Windows Safety Nets",
-  "invisible-safety-nets": "Transparent Safety Nets",
-  "monkey-safety-nets": "Monkey Safety Nets",
-  "sports-nets": "Sports Nets",
-  "children-safety-nets": "Children Safety Nets",
-};
-
-const ServicesCards = () => {
-  const services = Object.entries(servicesData);
-
+export default function ServicesCards() {
   return (
-    <div className="bg-black min-h-screen p-6">
-      <div className="relative z-10 text-center mb-16 px-6">
-    {/* <p className="uppercase tracking-[4px] text-yellow-400 text-sm mb-3">
-      JYOSHA
-    </p> */}
+    <section id="services" className="bg-black px-6 py-20 text-white md:py-28">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-12 max-w-3xl">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-yellow-400">
+            What we install
+          </p>
+          <h2 className="text-4xl font-bold leading-tight md:text-6xl">
+            The right protection for every opening.
+          </h2>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-white/65 md:text-lg">
+            From discreet balcony protection to bird control, pet-safe netting,
+            sports nets, and space-saving cloth hangers, every job starts with
+            the actual space—not a one-size-fits-all package.
+          </p>
+        </div>
 
-    <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-      Premium Safety Products
-      <br />
-      <span className="text-yellow-400">For Modern Living</span>
-    </h2>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {serviceCatalog.map((service, index) => (
+            <Link
+              key={service.slug}
+              href={`/services/${service.slug}`}
+              className={`group overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] transition duration-300 hover:-translate-y-1 hover:border-yellow-400/50 hover:bg-white/[0.07] ${
+                index === 0 || index === serviceCatalog.length - 1
+                  ? "lg:col-span-2"
+                  : ""
+              }`}
+            >
+              <div className="relative h-56 overflow-hidden">
+                <Image
+                  src={service.images[0]}
+                  alt={`${service.title} installation by Jyoshna`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                {service.slug === "cloth-hangers" && (
+                  <span className="absolute left-4 top-4 rounded-full bg-yellow-400 px-3 py-1 text-xs font-bold text-black">
+                    Newly added
+                  </span>
+                )}
+              </div>
 
-    {/* <p className="text-white/60 mt-4 max-w-xl mx-auto">
-      Invisible protection systems crafted for high-rise apartments,
-      blending safety with elegance.
-    </p> */}
-  </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        
-        
-
-{services.map(([key, title], index) => (
-  <Link
-    key={key}
-    href={`/services/${key === "invisible-safety-nets" ? "balcony-safety-nets" : key}`}
-    className="block bg-[#1f2a33] rounded-2xl p-4 shadow-lg hover:scale-[1.02] transition-all duration-300"
-  >
-    {/* Image */}
-    <div className="rounded-xl overflow-hidden">
-      <Image
-        src={images[index % images.length]}
-        alt={title}
-        width={400}
-        height={250}
-        className="w-full h-[180px] object-cover"
-      />
-    </div>
-
-    {/* Title (Clickable) */}
-    <div className="mt-4 bg-[#3a444d] rounded-xl py-4 text-center">
-      <h3 className="text-white text-lg font-medium">{title}</h3>
-    </div>
-  </Link>
-))}
+              <div className="flex min-h-44 flex-col p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="text-xl font-semibold">{service.title}</h3>
+                  <ArrowUpRight className="mt-1 shrink-0 text-yellow-400 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" size={20} />
+                </div>
+                <p className="mt-3 text-sm leading-6 text-white/60">
+                  {service.cardDescription}
+                </p>
+                <span className="mt-auto pt-5 text-sm font-semibold text-yellow-400">
+                  See details
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default ServicesCards;
+}

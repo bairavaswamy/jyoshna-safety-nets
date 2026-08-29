@@ -34,8 +34,11 @@ export default function DropdownClient() {
 
   /* close on navigation */
   useEffect(() => {
-    setOpen(false);
-    setActiveService(null);
+    const frame = requestAnimationFrame(() => {
+      setOpen(false);
+      setActiveService(null);
+    });
+    return () => cancelAnimationFrame(frame);
   }, [pathname]);
 
   /* click outside */

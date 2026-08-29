@@ -1,15 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { GoogleTagManager } from "@next/third-parties/google";
 import FloatingButtons from "@/app/components/FloatingButtons";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-});
-
 const siteUrl = "https://jyoshnainvisiblegrills.com";
+const bangaloreMapsUrl =
+  "https://www.google.com/maps/search/?api=1&query=S%201st%20Rd%2C%20Duravani%20Nagar%2C%20Krishnarajapuram%2C%20Bengaluru%2C%20Karnataka%20560016";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -21,7 +17,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Expert installation of invisible grills and safety nets for balconies, windows, and ducts in Visakhapatnam. Protect your family with durable, elegant balcony safety solutions.",
+    "Invisible grills, safety nets, bird-control systems, sports nets, and ceiling cloth hanger installation across Bangalore, with service also available in Visakhapatnam and selected Andhra Pradesh areas.",
 
   keywords: [
     "invisible grills",
@@ -30,8 +26,9 @@ export const metadata: Metadata = {
     "bird nets",
     "pigeon nets",
     "anti fall nets",
-    "invisible grills in Visakhapatnam",
-    "balcony safety nets in Vizag",
+    "invisible grills in Bangalore",
+    "balcony safety nets in Bangalore",
+    "safety nets in Visakhapatnam",
   ],
 
   authors: [{ name: "Jyoshna Invisible Grills" }],
@@ -66,7 +63,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Jyoshna Invisible Grills & Safety Nets",
     description:
-      "Premium invisible grills and safety net installation for balconies, windows, ducts, and apartments in Visakhapatnam.",
+      "Measured invisible grills, safety nets, bird-control systems, sports nets, and cloth hanger installation across Bangalore.",
     url: siteUrl,
     siteName: "Jyoshna Invisible Grills",
     images: [
@@ -85,7 +82,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Jyoshna Invisible Grills",
     description:
-      "Premium invisible grills and balcony safety net solutions in Visakhapatnam.",
+      "Invisible grills, safety nets, bird control, sports nets, and ceiling cloth hangers across Bangalore.",
     images: ["/opengraph-image.webp"],
   },
 
@@ -112,52 +109,37 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "@id": `${siteUrl}/#localbusiness`,
-  name: "Jyoshna Invisible Grills",
-  alternateName: "Jyoshna Safety Nets",
+  name: "Jyoshna Invisible Grills: Balcony Safety Nets, Pigeon Safety Nets & Invisible Grills for Balcony in Bangalore",
+  alternateName: "Jyoshna Invisible Grills",
   url: siteUrl,
   telephone: ["+918106420981", "+919392372421"],
   logo: `${siteUrl}/icon.png`,
   image: `${siteUrl}/opengraph-image.webp`,
   description:
-    "Jyoshna Invisible Grills provides invisible grills, balcony safety nets, pigeon nets, children safety nets, duct nets, and apartment safety solutions in Visakhapatnam.",
+    "Jyoshna Invisible Grills provides invisible grills, balcony safety nets, pigeon nets, children safety nets, duct nets, sports nets, and ceiling cloth hangers across Bangalore and Visakhapatnam.",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Visakhapatnam",
-    addressRegion: "Andhra Pradesh",
+    streetAddress: "S 1st Rd, Duravani Nagar, Krishnarajapuram",
+    addressLocality: "Bengaluru",
+    addressRegion: "Karnataka",
+    postalCode: "560016",
     addressCountry: "IN",
   },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 17.6868,
-    longitude: 83.2185,
-  },
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ],
-      opens: "00:00",
-      closes: "23:59",
-    },
-  ],
+  hasMap: bangaloreMapsUrl,
   areaServed: [
     {
       "@type": "City",
       name: "Visakhapatnam",
     },
     {
+      "@type": "City",
+      name: "Bangalore",
+    },
+    {
       "@type": "Place",
       name: "Vizag",
     },
   ],
-  priceRange: "₹₹",
   sameAs: [
     "https://www.facebook.com/share/1bcXPJGhhL/",
     "https://www.instagram.com/jyoshnainvisiblegrills",
@@ -173,7 +155,7 @@ export default function RootLayout({
     <html lang="en-IN" suppressHydrationWarning>
       <GoogleTagManager gtmId="GTM-MGM8HVBW" />
 
-      <body className={`${inter.className} antialiased`}>
+      <body className="antialiased">
         {children}
         <FloatingButtons />
 

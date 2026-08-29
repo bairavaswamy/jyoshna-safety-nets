@@ -1,4 +1,4 @@
-export const locations:string[] = [
+export const andhraPradeshLocations: string[] = [
   "Dowleswaram",
   "kovvur",
   "kapavaram",
@@ -48,7 +48,6 @@ export const locations:string[] = [
   "hukumpeta",
   "gajuwaka rural",
   "kurmannapalem",
-  "madhurawada",
   "MVP Colony",
   "Madhurawada",
   "Rushikonda",
@@ -88,6 +87,10 @@ export const locations:string[] = [
   "Steel Plant",
   "Scindia",
   "Town Kotha Road",
+];
+
+export const bangaloreLocations: string[] = [
+  "Bangalore",
   "Whitefield",
   "Marathahalli",
   "Brookefield",
@@ -185,4 +188,9 @@ export const locations:string[] = [
   "Byrathi",
   "Horamavu Agara",
   "Ramamurthy Nagar Extension"
+];
+
+export const locations: string[] = [
+  ...andhraPradeshLocations,
+  ...bangaloreLocations,
 ];

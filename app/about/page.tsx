@@ -1,213 +1,146 @@
-import { Metadata } from "next";
-import Script from "next/script";
-import { ShieldCheck, Users, Award, Target } from "lucide-react";
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { ClipboardCheck, Eye, Ruler, ShieldCheck } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "About Jyoshna Safety Nets | Trusted Safety Nets Services",
+  title: "About Jyoshna Invisible Grills & Safety Nets",
   description:
-    "Learn about Jyoshna Safety Nets – experts in balcony safety nets, pigeon nets, invisible grills & child safety solutions. 5000+ installations with 100% satisfaction.",
-  keywords: [
-    "Safety Nets",
-    "Balcony Safety Nets",
-    "Pigeon Nets",
-    "Invisible Grills",
-    "Child Safety Nets",
-    "Best Safety Nets Services",
-  ],
-  openGraph: {
-    title: "Jyoshna Safety Nets",
-    description:
-      "Top-rated safety nets installation company with 5000+ projects completed.",
-    url: "https://jyoshnainvisiblegrills.com/about",
-    siteName: "Jyoshna Safety Nets",
-    images: [
-      {
-        url: "https://jyoshnainvisiblegrills.com/og-image.webp",
-        width: 1200,
-        height: 630,
-      },
-    ],
-    locale: "en_IN",
-    type: "website",
+    "Learn how Jyoshna plans and installs invisible grills, safety nets, bird-control systems, sports nets, and ceiling cloth hangers for homes and buildings.",
+  alternates: {
+    canonical: "https://jyoshnainvisiblegrills.com/about",
   },
 };
 
+const values = [
+  {
+    icon: Ruler,
+    title: "Measure the actual site",
+    text: "Dimensions, fixing surfaces, access, and edge conditions are checked before the final quotation.",
+  },
+  {
+    icon: Eye,
+    title: "Explain the trade-offs",
+    text: "We help you compare netting, invisible grills, spikes, and other options based on the problem—not a sales script.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Fit for the intended use",
+    text: "A child-safety opening, cat balcony, bird problem, and sports area require different materials and details.",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Leave practical guidance",
+    text: "We explain what to inspect, how to care for the installation, and when damaged parts should be replaced.",
+  },
+];
+
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen bg-neutral-950 text-white overflow-hidden">
+    <div className="min-h-screen bg-neutral-950 text-white">
       <Navbar />
 
-      {/* JSON-LD Schema */}
-      <Script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "LocalBusiness",
-            name: "Jyoshna Safety Nets",
-            image: "https://jyoshnainvisiblegrills.com/jyoshna-invisible-grills-logo.webp",
-            "@id": "https://jyoshnainvisiblegrills.com",
-            url: "https://jyoshnainvisiblegrills.com",
-            telephone: "+91-9876543210",
-            address: {
-              "@type": "PostalAddress",
-              addressCountry: "IN",
-            },
-            description:
-              "Professional safety nets installation services including balcony nets, pigeon nets, invisible grills and child safety nets.",
-            areaServed: [
-          "Visakhapatnam",
-          "Hyderabad",
-          "Bangalore"
-        ],
-        priceRange: "20-500",
-            serviceType: [
-              "Balcony Safety Nets",
-              "Pigeon Safety Nets",
-              "Invisible Grills",
-              "Child Safety Nets",
-              "Anti Bird Nets",
-              "Monkey Safety Nets",
-              "Customized Safety Solutions"
-            ],
-          }),
-        }}
-      />
-
-      {/* Background */}
-      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-orange-500/20 blur-[200px]" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-indigo-500/20 blur-[220px]" />
-
-      <div className="relative z-10 max-w-[1200px] mx-auto px-6 pt-20 pb-28">
-
-        {/* HERO */}
-        <div className="text-center mb-24">
-          <h1 className="text-5xl font-bold mb-6 leading-tight">
-            About <span className="text-orange-400">Jyoshna Safety Nets</span>
-          </h1>
-
-          <p className="text-neutral-400 max-w-2xl mx-auto text-lg">
-            We are a trusted safety solutions provider specializing in high-quality safety nets
-            designed to protect families, children, pets, and properties. With years of experience
-            and thousands of successful installations, we deliver safety you can rely on.
-          </p>
-        </div>
-
-        {/* FEATURES */}
-        <div className="grid md:grid-cols-4 gap-6 mb-24">
-          {[
-            {
-              icon: <ShieldCheck size={24} />,
-              title: "Safety First",
-              text: "Premium-grade materials for maximum durability and protection.",
-            },
-            {
-              icon: <Users size={24} />,
-              title: "Trusted Experts",
-              text: "Skilled professionals with real-world installation experience.",
-            },
-            {
-              icon: <Award size={24} />,
-              title: "Quality Assurance",
-              text: "Long-lasting installations backed by strong workmanship.",
-            },
-            {
-              icon: <Target size={24} />,
-              title: "Customer Focus",
-              text: "Customized safety solutions tailored to your needs.",
-            },
-          ].map((item, i) => (
-            <div
-              key={i}
-              
-              className="p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl hover:bg-white/10 transition shadow-lg"
-            >
-              <div className="text-orange-400 mb-3">{item.icon}</div>
-              <h3 className="font-semibold mb-1">{item.title}</h3>
-              <p className="text-neutral-400 text-sm">{item.text}</p>
+      <main>
+        <section className="relative overflow-hidden border-b border-white/10 px-6 py-20 md:py-28">
+          <div className="absolute -left-40 top-0 h-96 w-96 rounded-full bg-orange-500/15 blur-[150px]" />
+          <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-yellow-400">About Jyoshna</p>
+              <h1 className="mt-5 text-5xl font-bold leading-[1.05] md:text-7xl">
+                Safer spaces begin with a better look at the space.
+              </h1>
+              <p className="mt-7 max-w-2xl text-lg leading-8 text-white/65">
+                Jyoshna installs invisible grills, residential and commercial
+                safety nets, bird-control systems, sports nets, and ceiling
+                cloth hangers. We begin with the opening, the people or animals
+                using it, and the conditions the installation will face.
+              </p>
             </div>
-          ))}
-        </div>
 
-        {/* ABOUT */}
-        <div className="grid lg:grid-cols-2 gap-14 items-center mb-24">
-          <div
-            
-            
-            
-          >
-            <h2 className="text-3xl font-semibold mb-6">Who We Are</h2>
-
-            <p className="text-neutral-400 mb-4">
-              Jyoshna Safety Nets is a leading provider of balcony safety nets, pigeon nets,
-              invisible grills, and customized protection systems for residential and commercial
-              spaces.
-            </p>
-
-            <p className="text-neutral-400">
-              Our mission is simple — to make every home safer. We combine advanced installation
-              techniques, durable materials, and affordable pricing to deliver industry-leading
-              safety solutions.
-            </p>
-          </div>
-
-          <div className="p-10 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-xl">
-            <h3 className="text-xl font-semibold mb-4">Our Services</h3>
-
-            <ul className="space-y-2 text-neutral-400">
-              <li>• Invisible Grills</li>
-              <li>• Balcony Safety Nets</li>
-              <li>• Pigeon Nets</li>
-              <li>• Anti Bird Nets</li>
-              <li>• Children Safety Nets</li>
-              <li>• Monkey Safety Nets</li>
-              <li>• Cat Safety Nets</li>
-              <li>• Customized Safety Solutions</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* STATS */}
-        <div className="grid md:grid-cols-3 gap-6 mb-24 text-center">
-          {[
-            { number: "5000+", label: "Installations Completed" },
-            { number: "100%", label: "Customer Satisfaction" },
-            { number: "5+ Years", label: "Experience" },
-          ].map((item, i) => (
-            <div
-              key={i}
-              
-              className="p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl"
-            >
-              <h3 className="text-3xl font-bold text-orange-400 mb-2">
-                {item.number}
-              </h3>
-              <p className="text-neutral-400">{item.label}</p>
+            <div className="relative min-h-[500px] overflow-hidden rounded-[2rem]">
+              <Image
+                src="/invisible-grills-for-balcony.webp"
+                alt="Invisible grill installation across a residential balcony"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 55vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+              <div className="absolute inset-x-6 bottom-6 rounded-2xl border border-white/15 bg-black/60 p-5 backdrop-blur-md">
+                <p className="font-semibold text-yellow-400">Our aim is simple</p>
+                <p className="mt-2 text-sm leading-6 text-white/70">
+                  Recommend a practical system, fit it neatly, and make sure you
+                  understand how to use and inspect it.
+                </p>
+              </div>
             </div>
-          ))}
-        </div>
+          </div>
+        </section>
 
-        {/* CTA */}
-        <div className="mt-20 p-12 text-center rounded-2xl border border-white/10 bg-gradient-to-r from-orange-500/20 to-indigo-500/20 backdrop-blur-xl">
-          <h2 className="text-3xl font-semibold mb-4">
-            Protect Your Home Today
-          </h2>
+        <section className="bg-[#f3f0e7] px-6 py-20 text-neutral-950 md:py-28">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.26em] text-orange-600">What matters to us</p>
+                <h2 className="mt-4 text-4xl font-bold leading-tight md:text-5xl">Clear advice you can evaluate.</h2>
+                <p className="mt-5 leading-7 text-neutral-600">
+                  We prefer useful details over unverifiable numbers. These are
+                  the standards our process is built around.
+                </p>
+              </div>
 
-          <p className="text-neutral-300 mb-6">
-            Get professional safety nets installation for your home or apartment.
-          </p>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {values.map(({ icon: Icon, title, text }) => (
+                  <div key={title} className="rounded-3xl bg-white p-7 shadow-sm">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-yellow-400"><Icon size={21} /></span>
+                    <h3 className="mt-6 text-xl font-semibold">{title}</h3>
+                    <p className="mt-3 text-sm leading-6 text-neutral-600">{text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
-          <a
-            href="https://wa.me/919876543210"
-            className="inline-block px-8 py-3 bg-orange-500 hover:bg-orange-600 rounded-lg font-semibold shadow-lg shadow-orange-500/40 transition"
-          >
-            Contact on WhatsApp
-          </a>
-        </div>
-      </div>
-      <Footer/>
+        <section className="px-6 py-20 md:py-28">
+          <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:items-center">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="relative h-80 overflow-hidden rounded-3xl"><Image src="/cloth-hanger-3.webp" alt="Ceiling cloth hanger installation" fill sizes="25vw" className="object-cover" /></div>
+              <div className="relative mt-12 h-80 overflow-hidden rounded-3xl"><Image src="/bird-spike-2.webp" alt="Bird spike installation" fill sizes="25vw" className="object-cover" /></div>
+            </div>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.26em] text-yellow-400">A broader service range</p>
+              <h2 className="mt-4 text-4xl font-bold leading-tight md:text-5xl">Protection, bird control, play areas, and everyday utility.</h2>
+              <p className="mt-6 text-lg leading-8 text-white/60">
+                Our services now include ceiling cloth hangers, bird spikes,
+                cat safety nets, and full-building safety nets alongside
+                invisible grills and residential netting. Each service page
+                explains where the product fits—and where another option may be better.
+              </p>
+              <Link href="/#services" className="mt-8 inline-flex rounded-full bg-yellow-400 px-7 py-3.5 font-bold text-black transition hover:bg-yellow-300">
+                Explore all services
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-yellow-400 px-6 py-16 text-black">
+          <div className="mx-auto flex max-w-7xl flex-col justify-between gap-7 md:flex-row md:items-center">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.22em]">Start with photos</p>
+              <h2 className="mt-2 text-3xl font-bold md:text-5xl">Tell us what you need to protect.</h2>
+            </div>
+            <a href="https://wa.me/919392372421?text=Hi%2C%20I%20would%20like%20help%20choosing%20the%20right%20installation." target="_blank" rel="noopener noreferrer" className="shrink-0 rounded-full bg-black px-8 py-4 font-bold text-white transition hover:bg-neutral-800">
+              WhatsApp Jyoshna
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
     </div>
   );
 }

@@ -1,27 +1,25 @@
 
 "use client";
-import { useState } from "react"
 import { motion } from "framer-motion"
-import { Mail, Phone, MapPin, Clock } from "lucide-react"
+import { Mail, Phone, MapPin, MessageCircle } from "lucide-react"
 import Navbar from "../components/Navbar"
-import Link from "next/link"
 import Footer from "../components/Footer"
 
+const BANGALORE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=S%201st%20Rd%2C%20Duravani%20Nagar%2C%20Krishnarajapuram%2C%20Bengaluru%2C%20Karnataka%20560016"
 
 export default function ContactPage(){
 
-const [loading,setLoading] = useState(false)
-
-
-
-const handleSubmit=(e:any)=>{
+const handleSubmit=(e:React.FormEvent<HTMLFormElement>)=>{
 e.preventDefault()
-setLoading(true)
-
-setTimeout(()=>{
-alert("Message sent successfully!")
-setLoading(false)
-},1200)
+const form = new FormData(e.currentTarget)
+const name = String(form.get("name") || "")
+const phone = String(form.get("phone") || "")
+const service = String(form.get("service") || "")
+const message = String(form.get("message") || "")
+const text = encodeURIComponent(
+  `Hi, I'm ${name}. I need help with ${service}. Phone: ${phone}. ${message}`
+)
+window.open(`https://wa.me/919392372421?text=${text}`, "_blank", "noopener,noreferrer")
 }
 
 return(
@@ -46,12 +44,12 @@ className="text-center mb-24"
 >
 
 <h1 className="text-5xl font-bold mb-6">
-Let's <span className="text-orange-400">Talk</span>
+Let&apos;s <span className="text-orange-400">Talk</span>
 </h1>
 
 <p className="text-neutral-400 max-w-xl mx-auto">
-Need balcony safety nets or pigeon protection?  
-Our experts are ready to help you.
+Tell us what you need to protect and share your location. We will help you
+choose the right next step before arranging a site measurement.
 </p>
 
 </motion.div>
@@ -61,11 +59,10 @@ Our experts are ready to help you.
 <div className="grid md:grid-cols-4 gap-6 mb-20">
 
 {[
-{icon:<Phone size={22}/>,title:"Phone",text:"+91 8106420981"},
-{icon:<Phone size={22}/>,title:"Phone",text:"+91 9392372421"},
-{icon:<Mail size={22}/>,title:"Email",text:"jyoshainvisiblegrills@gmail.com"},
-{icon:<MapPin size={22}/>,title:"Location",text:"Visakhapatnam, India"},
-{icon:<Clock size={22}/>,title:"Hours",text:"Mon–Sun 00 – 23:59"},
+{icon:<Phone size={22}/>,title:"Call",text:"+91 8106420981"},
+{icon:<MessageCircle size={22}/>,title:"WhatsApp",text:"+91 9392372421"},
+{icon:<Mail size={22}/>,title:"Email",text:"jyoshnainvisiblegrills@gmail.com"},
+{icon:<MapPin size={22}/>,title:"Bangalore address",text:"S 1st Rd, Duravani Nagar, Krishnarajapuram, Bengaluru 560016"},
 ].map((item,i)=>(
 
 <motion.div
@@ -121,9 +118,14 @@ shadow-[0_30px_80px_rgba(0,0,0,0.6)]
 "
 >
 
-<h2 className="text-2xl font-semibold mb-8">
-Send a Message
+<h2 className="text-2xl font-semibold mb-3">
+Start your enquiry
 </h2>
+
+<p className="mb-8 text-sm leading-6 text-neutral-400">
+Submitting this form opens WhatsApp with your details. Nothing is shown as
+sent until you choose to send it there.
+</p>
 
 <form onSubmit={handleSubmit} className="space-y-6">
 
@@ -131,31 +133,44 @@ Send a Message
 
 <input
 required
+name="name"
 placeholder="Your Name"
 className="w-full bg-neutral-900/70 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
 />
 
 <input
 required
-type="email"
-placeholder="Email Address"
-className="w-full bg-neutral-900/70 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
-/>
-
-<input
-required
+name="phone"
+type="tel"
 placeholder="Phone Number"
 className="w-full bg-neutral-900/70 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
 />
 
+<select
+required
+name="service"
+defaultValue=""
+className="w-full bg-neutral-900/70 border border-white/10 rounded-lg px-4 py-3 text-neutral-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
+>
+<option value="" disabled>Select a service</option>
+<option>Invisible grills</option>
+<option>Balcony or window safety nets</option>
+<option>Pigeon nets or bird spikes</option>
+<option>Cat, child, or monkey safety nets</option>
+<option>Sports or full-building nets</option>
+<option>Ceiling cloth hangers</option>
+<option>Help me choose</option>
+</select>
+
 <textarea
+required
+name="message"
 rows={5}
-placeholder="Your Message"
+placeholder="Describe the opening, problem, and your location"
 className="w-full bg-neutral-900/70 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
 />
 
 <button
-disabled={loading}
 className="
 w-full
 bg-orange-500
@@ -169,7 +184,7 @@ shadow-orange-500/30
 "
 >
 
-{loading ? "Sending..." : "Send Message"}
+Continue on WhatsApp
 
 </button>
 
@@ -192,10 +207,38 @@ backdrop-blur-xl
 "
 >
 
-<iframe
-src="https://maps.google.com/maps?q=Visakhapatnam&t=&z=13&ie=UTF8&iwloc=&output=embed"
-className="w-full h-[430px] border-0"
-/>
+<div className="flex h-full min-h-[430px] flex-col justify-center p-8 md:p-12">
+  <p className="text-sm font-semibold uppercase tracking-[0.24em] text-orange-400">
+    Bangalore business address
+  </p>
+  <h2 className="mt-4 text-3xl font-semibold leading-tight">
+    Jyoshna Invisible Grills
+  </h2>
+  <p className="mt-3 text-sm font-medium leading-6 text-neutral-300">
+    Balcony Safety Nets, Pigeon Safety Nets & Invisible Grills for Balcony in Bangalore
+  </p>
+  <p className="mt-5 leading-7 text-neutral-400">
+    S 1st Rd, Duravani Nagar, Krishnarajapuram, Bengaluru, Karnataka 560016.
+  </p>
+  <a
+    href={BANGALORE_MAPS_URL}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600"
+  >
+    <MapPin size={17} /> Get directions
+  </a>
+  <p className="mt-8 text-sm font-semibold uppercase tracking-[0.2em] text-neutral-500">
+    Popular Bangalore service areas
+  </p>
+  <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-neutral-300">
+    {["Whitefield", "Electronic City", "HSR Layout", "Koramangala", "Hebbal", "Yelahanka"].map((area) => (
+      <div key={area} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+        {area}
+      </div>
+    ))}
+  </div>
+</div>
 
 </motion.div>
 
@@ -218,15 +261,15 @@ backdrop-blur-xl
 >
 
 <h2 className="text-3xl font-semibold mb-4">
-Need Safety Nets Installation?
+Need help choosing the right system?
 </h2>
 
 <p className="text-neutral-300 mb-6">
-Balcony • Pigeon • Child Protection Nets
+Invisible grills • Safety nets • Bird control • Cloth hangers
 </p>
 
 <a
-href="https://wa.me/918106420981"
+href="https://wa.me/919392372421"
 className="
 inline-block
 px-8 py-3

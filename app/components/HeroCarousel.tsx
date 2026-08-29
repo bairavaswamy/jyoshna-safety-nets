@@ -23,30 +23,33 @@ const slides = [
   {
     image:
       "/invisble-grills-installation.webp",
-    title: "Premium Invisible Grills",
-    subtitle: "Jyoshna Invisible Grill",
-    desc: "Luxury balcony protection with high-tensile stainless steel invisible grills."
+    title: "Open views. Safer edges.",
+    subtitle: "Invisible grills",
+    desc: "Made-to-measure stainless-steel cable systems for balconies and windows."
   },
   {
     image:
       "/transparabt-net-installation.webp",
-    title: "Safe Balcony Living",
-    subtitle: "Modern Protection",
-    desc: "Protect children and pets without blocking your balcony view."
+    title: "Protection shaped around your home.",
+    subtitle: "Balcony safety nets",
+    desc: "Neatly fitted netting for children, pets, birds, and open residential spaces."
   },
   {
-    image:
-      "/balcony-safety-nets.webp",
-    title: "Modern Safety Systems",
-    subtitle: "Elegant Design",
-    desc: "Minimalistic safety solutions for modern apartments."
+    image: "/cloth-hanger-2.webp",
+    title: "Make room for everyday living.",
+    subtitle: "Ceiling cloth hangers",
+    desc: "Lift-and-lower drying rods that use overhead space and keep your balcony floor clear."
+  },
+  {
+    image: "/bird-spike-6.webp",
+    title: "Stop the perch. Keep the space clean.",
+    subtitle: "Bird-control solutions",
+    desc: "Bird spikes and exclusion nets selected for the exact ledge, opening, or building area."
   }
 ];
 
 export default function CinematicHeroV3() {
   const [index, setIndex] = useState(0);
-  const [pause, setPause] = useState(false);
-
   const progress = useMotionValue(0);
 
   /* mouse parallax */
@@ -74,8 +77,6 @@ export default function CinematicHeroV3() {
 
   /* autoplay FIXED */
   useEffect(() => {
-    if (pause) return;
-
     let start = Date.now();
 
     const timer = setInterval(() => {
@@ -92,7 +93,7 @@ export default function CinematicHeroV3() {
     }, 16);
 
     return () => clearInterval(timer);
-  }, [pause, next, progress]);
+  }, [next, progress]);
 
   /* keyboard navigation */
   useEffect(() => {
@@ -106,7 +107,7 @@ export default function CinematicHeroV3() {
   }, [next, prev]);
 
   return (
-    <section className="relative -mt-28 h-[80vh] md:h-[100vh] lg:h-[100vh] w-full overflow-hidden">
+    <section className="relative -mt-28 h-[82vh] min-h-[620px] w-full overflow-hidden md:h-screen">
 
       {/* BACKGROUND SLIDES (NO UNMOUNT = NO BLINK) */}
       {slides.map((slide, i) => (
@@ -124,9 +125,9 @@ export default function CinematicHeroV3() {
               src={slide.image}
               alt={slide.title}
               fill
-              priority
+              loading={i === 0 ? "eager" : "lazy"}
               sizes="100vw"
-              className="object-fit"
+              className="object-cover"
             />
           </motion.div>
 
@@ -142,19 +143,19 @@ export default function CinematicHeroV3() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="absolute inset-0 flex items-center justify-center px-6"
+        className="absolute inset-0 flex items-center justify-center px-5 pt-20"
       >
-        <div className="max-w-3xl text-center text-white backdrop-blur-lg bg-white/5 border border-white/10 rounded-3xl p-12 shadow-2xl">
+        <div className="max-w-3xl rounded-3xl border border-white/10 bg-black/30 p-7 text-center text-white shadow-2xl backdrop-blur-lg md:p-12">
 
-          <p className="tracking-[4px] text-1xl md:text-2xl lg:text-2xl uppercase text-yellow-400 mb-4">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[4px] text-yellow-400 md:text-lg">
             {slides[index].subtitle}
           </p>
 
-          <h1 className=" text-2xl md:text-5xl lg:text-5xl md:text-7xl font-bold mb-6">
+          <h1 className="mb-6 text-4xl font-bold leading-tight md:text-7xl">
             {slides[index].title}
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-200 mb-10">
+          <p className="mx-auto mb-9 max-w-2xl text-base leading-7 text-gray-200 md:text-xl">
             {slides[index].desc}
           </p>
 
@@ -165,14 +166,16 @@ export default function CinematicHeroV3() {
       {/* arrows */}
       <button
         onClick={prev}
-        className="absolute left-8 top-1/2 -translate-y-1/2 text-white text-4xl opacity-70 hover:opacity-100"
+        aria-label="Previous slide"
+        className="absolute left-4 top-1/2 -translate-y-1/2 text-4xl text-white opacity-70 hover:opacity-100 md:left-8"
       >
         ‹
       </button>
 
       <button
         onClick={next}
-        className="absolute right-8 top-1/2 -translate-y-1/2 text-white text-4xl opacity-70 hover:opacity-100"
+        aria-label="Next slide"
+        className="absolute right-4 top-1/2 -translate-y-1/2 text-4xl text-white opacity-70 hover:opacity-100 md:right-8"
       >
         ›
       </button>
@@ -182,6 +185,7 @@ export default function CinematicHeroV3() {
         {slides.map((_, i) => (
           <button
             key={i}
+            aria-label={`Show slide ${i + 1}`}
             onClick={() => setIndex(i)}
             className={`rounded-full transition-all ${
               i === index

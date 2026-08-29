@@ -47,15 +47,6 @@
   
 // ]
 
-export const services:string[] = [
-  "invisible-grills",
-  "balcony-safety-nets",
-  "pigeon-safety-nets",
-  "anti-bird-nets",
-  "duct-area-safety-nets",
-  "safety-net-installation",
-  "windows-safety-nets",
-  "monkey-safety-nets",
-  "sports-nets",
-  "children-safety-nets",
-];
+import { serviceCatalog } from "./serviceCatalog";
+
+export const services: string[] = serviceCatalog.map(({ slug }) => slug);

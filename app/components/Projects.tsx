@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+import type { Dispatch, MouseEvent, SetStateAction } from "react";
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 
 const images = [
@@ -16,6 +17,7 @@ const images = [
   "/cards/mokey-safety-nets-installation.webp",
   "/cards/sports-nets-instllation.webp",
   "/cards/balcony-safety-nets-near-me.webp",
+  "/cloth-hanger-3.webp",
 ];
 
 const projects = [
@@ -36,10 +38,12 @@ const projects = [
     title: "Children Safety Balcony Nets",
   },
   {
-    img: images[2],
-    title: "Luxury Apartment Balcony Safety",
+    img: images[11],
+    title: "Ceiling Cloth Hanger Installation",
   },
 ];
+
+type Project = (typeof projects)[number];
 
 export default function CinematicProjects() {
 
@@ -95,7 +99,7 @@ export default function CinematicProjects() {
   const startX=useRef(0)
   const scrollLeft=useRef(0)
 
-  const onMouseDown=(e:any)=>{
+  const onMouseDown=(e:MouseEvent<HTMLDivElement>)=>{
     isDown.current=true
     startX.current=e.pageX-scrollRef.current!.offsetLeft
     scrollLeft.current=scrollRef.current!.scrollLeft
@@ -104,7 +108,7 @@ export default function CinematicProjects() {
   const onMouseLeave=()=>isDown.current=false
   const onMouseUp=()=>isDown.current=false
 
-  const onMouseMove=(e:any)=>{
+  const onMouseMove=(e:MouseEvent<HTMLDivElement>)=>{
     if(!isDown.current)return
     e.preventDefault()
 
@@ -131,18 +135,18 @@ className="mb-16"
 >
 
 <p className="uppercase tracking-[4px] text-yellow-400 text-sm">
-OUR WORK
+INSTALLATION DETAILS
 </p>
 
 <h2 className="text-4xl md:text-5xl font-bold mt-3 leading-tight">
-Premium Installations
+See how the work
 <br/>
-Across Luxury Apartments
+fits the space
 </h2>
 
 <p className="text-white/60 mt-4 max-w-xl">
-Explore some of our latest safety net and invisible grill
-installations designed for modern homes and high-rise apartments.
+Look closely at the edges, fixing lines, coverage, and finish across
+different invisible grill, safety net, and cloth hanger installations.
 </p>
 
 </motion.div>
@@ -270,12 +274,16 @@ setActive(active===projects.length-1?0:active+1)
 
 /* 3D tilt card */
 
-function TiltCard({project,i,setActive}:any){
+function TiltCard({ project, i, setActive }: {
+  project: Project;
+  i: number;
+  setActive: Dispatch<SetStateAction<number | null>>;
+}){
 
 const x=useMotionValue(0)
 const y=useMotionValue(0)
 
-const handleMove=(e:any)=>{
+const handleMove=(e:MouseEvent<HTMLDivElement>)=>{
 
 const rect=e.currentTarget.getBoundingClientRect()
 

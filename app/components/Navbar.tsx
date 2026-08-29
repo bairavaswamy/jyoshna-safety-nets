@@ -87,8 +87,9 @@ const Navbar = () => {
   useEffect(() => {
     const saved = localStorage.getItem("theme");
     if (saved === "dark") {
-      setDark(true);
       document.documentElement.classList.add("dark");
+      const frame = requestAnimationFrame(() => setDark(true));
+      return () => cancelAnimationFrame(frame);
     }
   }, []);
 
@@ -159,11 +160,6 @@ const Navbar = () => {
       .sort((a, b) => b.score - a.score)
       .slice(0, 8);
   }, [debouncedQuery, searchIndex]);
-
-  /* Reset selected if suggestions change */
-  useEffect(() => {
-    setSelected(0);
-  }, [debouncedQuery]);
 
   /* ---------------- Keyboard Nav ---------------- */
   useEffect(() => {
@@ -338,10 +334,38 @@ const Navbar = () => {
               </button>
             </div>
           </div>
+
+          <div
+            className="overflow-hidden rounded-b-2xl border-t border-yellow-300/40 bg-yellow-400 text-black"
+            aria-label="Jyoshna contact numbers: call +91 81064 20981 or WhatsApp +91 93923 72421"
+          >
+            <div className="phone-marquee flex w-max items-center py-2 text-xs font-bold uppercase tracking-[0.16em] md:text-sm">
+              {[0, 1].map((copy) => (
+                <div
+                  key={copy}
+                  aria-hidden={copy === 1}
+                  className="flex shrink-0 items-center gap-5 px-5"
+                >
+                  <a href="tel:+918106420981" className="transition hover:underline">
+                    Call: +91 81064 20981
+                  </a>
+                  <span aria-hidden="true">•</span>
+                  <a
+                    href="https://wa.me/919392372421"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition hover:underline"
+                  >
+                    WhatsApp: +91 93923 72421
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
         </header>
       </div>
 
-      <div className="pt-24" />
+      <div className="pt-32" />
 
       <div className="lg:hidden">
         <MenuClient open={open} onClose={() => setOpen(false)} />

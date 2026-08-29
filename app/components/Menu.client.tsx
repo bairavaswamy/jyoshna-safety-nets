@@ -60,8 +60,9 @@ export default function MenuClient({ open, onClose }: Props) {
     const saved = localStorage.getItem("theme");
 
     if (saved === "dark") {
-      setDarkMode(true);
       document.documentElement.classList.add("dark");
+      const frame = requestAnimationFrame(() => setDarkMode(true));
+      return () => cancelAnimationFrame(frame);
     }
   }, []);
 
@@ -143,21 +144,6 @@ export default function MenuClient({ open, onClose }: Props) {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [suggestions, selectedIndex, open, router, onClose]);
-
-  /* AUTOFOCUS */
-
-  useEffect(() => {
-    if (!open) return;
-
-    const isMobile = /Mobi|Android|iPhone|iPad/i.test(
-      navigator.userAgent
-    );
-
-    // if (!isMobile) {
-    //   const t = setTimeout(() => inputRef.current?.focus(), 150);
-    //   return () => clearTimeout(t);
-    // }
-  }, [open]);
 
   return (
     <>

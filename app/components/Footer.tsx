@@ -9,7 +9,6 @@ import {
   Facebook,
   Instagram,
   Twitter,
-  Star,
 } from "lucide-react";
 import Link from "next/link";
 import { services } from "./constants/services";
@@ -95,31 +94,8 @@ function PartnerWebsites() {
 
 /* ---------- FOOTER ---------- */
 export default function Footer() {
-  const [year, setYear] = useState<number | null>(null);
+  const year = new Date().getFullYear();
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [visitors, setVisitors] = useState<number | null>(null);
-
-  /* ---------- YEAR ---------- */
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
-
-  /* ---------- VISITOR COUNTER ---------- */
-  useEffect(() => {
-    setVisitors(3);
-  }, []);
-
-  useEffect(() => {
-    if (visitors === null) return;
-
-    const interval = setInterval(() => {
-      setVisitors((value) =>
-        Math.max(2, (value ?? 3) + Math.floor(Math.random() * 1 - 1))
-      );
-    }, 40000);
-
-    return () => clearInterval(interval);
-  }, [visitors]);
 
   /* ---------- SCROLL PROGRESS ---------- */
   const handleScroll = useCallback(() => {
@@ -138,9 +114,12 @@ export default function Footer() {
     const onScroll = () => requestAnimationFrame(handleScroll);
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    handleScroll();
+    const initialFrame = requestAnimationFrame(handleScroll);
 
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      cancelAnimationFrame(initialFrame);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [handleScroll]);
 
   const socialLinks = [
@@ -181,30 +160,28 @@ export default function Footer() {
             </h3>
 
             <p className="text-sm leading-relaxed text-neutral-400">
-              Redefining balcony safety with sleek, high-strength invisible
-              grills that blend seamlessly into modern architecture. We
-              specialize in durable, rust-resistant installations that protect
-              your loved ones without blocking your view.
+              Invisible grills, safety nets, bird-control systems, sports nets,
+              and ceiling cloth hangers measured and fitted for homes,
+              apartments, and commercial spaces.
             </p>
 
             <p className="text-sm leading-relaxed text-neutral-500">
-              Trusted by homeowners for quality craftsmanship, precision
-              fitting, and long-lasting safety solutions designed for today’s
-              urban lifestyle.
+              Send us photos of the opening and your location for an initial
+              recommendation. Final pricing is confirmed after measurement.
             </p>
 
             {/* TRUST */}
             <div className="mt-2 flex flex-wrap gap-2 text-xs">
               <span className="rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1">
-                10+ Years Experience
+                Measured to fit
               </span>
 
               <span className="rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1">
-                2800+ Installations
+                Clear quotation
               </span>
 
-              <span className="flex items-center gap-1 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1">
-                <Star size={12} /> 4.9 Rating
+              <span className="rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1">
+                Site inspection
               </span>
             </div>
 
@@ -275,17 +252,22 @@ export default function Footer() {
                 jyoshnainvisiblegrills@gmail.com
               </a>
 
-              <div className="flex items-center gap-2">
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=S%201st%20Rd%2C%20Duravani%20Nagar%2C%20Krishnarajapuram%2C%20Bengaluru%2C%20Karnataka%20560016"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-2 transition hover:text-orange-400"
+              >
                 <MapPin size={16} className="text-orange-400" />
-                Vizag, India
-              </div>
+                <span>S 1st Rd, Duravani Nagar,<br />Krishnarajapuram, Bengaluru 560016</span>
+              </a>
             </div>
           </div>
         </div>
 
         {/* BOTTOM */}
         <div className="mt-16 flex flex-col items-center justify-between border-t border-white/10 pt-8 text-sm text-neutral-400 md:flex-row">
-          <p>© {year ?? 2026} Jyoshna Invisible Grills</p>
+          <p>© {year} Jyoshna Invisible Grills</p>
 
           <Link
             href="https://gbrixtechlabs.com"
@@ -328,12 +310,6 @@ export default function Footer() {
         </a>
       </div>
 
-      {/* VISITOR COUNTER */}
-      {visitors !== null && (
-        <div className="fixed bottom-24 left-6 rounded-lg border border-white/10 bg-black/80 px-3 py-2 text-xs shadow-md">
-          {visitors} people viewing
-        </div>
-      )}
     </footer>
   );
 }

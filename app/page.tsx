@@ -2,10 +2,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HeroCarousel from "./components/HeroCarousel";
 import About from "./components/About";
-import Services from "./components/Services";
 import Projects from "./components/Projects";
 import Stats from "./components/Stats";
-import Testimonials from "./components/Testimonials";
 import ServicesCards from "./components/HeroCards";
 
 export default function Page() {
@@ -16,14 +14,12 @@ export default function Page() {
         <main className="flex-1 ">
           <Navbar />
           <HeroCarousel />
-          <section className="py-16 md:px-8 lg:px-16 space-y-20">
+          <div className="space-y-0">
             <ServicesCards />
             <About />
-            <Services />
             <Projects />
             <Stats />
-            <Testimonials />
-          </section>
+          </div>
         </main>
         <Footer />
       </div>

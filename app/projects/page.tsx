@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+import type { Dispatch, MouseEvent, SetStateAction } from "react";
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -14,19 +15,27 @@ const images = [
   "/cards/anti-bird-net.webp",
   "/cards/duct-area-safety-nets-near-me.webp",
   "/cards/window-safety-nets.webp",
+  "/cloth-hanger-3.webp",
+  "/bird-spike-6.webp",
+  "/building-covering-safety-net.webp",
 ];
 
 /* PROJECT DATA */
 const projects = [
   { img: images[0], title: "Invisible Grill Installation", category: "Grills" },
   { img: images[1], title: "Balcony Safety Nets", category: "Safety Nets" },
-  { img: images[2], title: "Luxury Balcony Protection", category: "Premium" },
+  { img: images[2], title: "Transparent Balcony Netting", category: "Safety Nets" },
   { img: images[3], title: "Anti Bird Net Solution", category: "Bird Nets" },
   { img: images[4], title: "Duct Area Safety", category: "Safety Nets" },
   { img: images[5], title: "Window Safety Nets", category: "Safety Nets" },
+  { img: images[6], title: "Ceiling Cloth Hangers", category: "Utility" },
+  { img: images[7], title: "Bird Spike Fitting", category: "Bird Control" },
+  { img: images[8], title: "Full-Building Safety Net", category: "Large Format" },
 ];
 
-const categories = ["All", "Grills", "Safety Nets", "Bird Nets", "Premium"];
+type Project = (typeof projects)[number];
+
+const categories = ["All", "Grills", "Safety Nets", "Bird Nets", "Bird Control", "Utility", "Large Format"];
 
 export default function ProjectsPage() {
   const [active, setActive] = useState<number | null>(null);
@@ -65,14 +74,14 @@ export default function ProjectsPage() {
         <p className="text-yellow-400 tracking-[4px] text-sm">OUR PROJECTS</p>
 
         <h1 className="text-5xl font-bold mt-4 leading-tight">
-          Premium Installations
+          Installation Gallery
           <br />
           Across Modern Homes
         </h1>
 
         <p className="text-white/60 mt-6 max-w-xl mx-auto">
-          Explore our recent work featuring safety nets, invisible grills, and
-          custom protection solutions for apartments and villas.
+          Compare the coverage and finish of invisible grills, safety nets,
+          bird-control systems, and ceiling cloth hangers across different spaces.
         </p>
       </section>
 
@@ -187,11 +196,15 @@ export default function ProjectsPage() {
 }
 
 /* TILT CARD */
-function TiltCard({ project, i, setActive }: any) {
+function TiltCard({ project, i, setActive }: {
+  project: Project;
+  i: number;
+  setActive: Dispatch<SetStateAction<number | null>>;
+}) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const handleMove = (e: any) => {
+  const handleMove = (e: MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const px = (e.clientX - rect.left) / rect.width;
     const py = (e.clientY - rect.top) / rect.height;

@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Contact Jyoshna Safety Nets | Call for Free Inspection",
+  title: "Contact Jyoshna Invisible Grills Bangalore",
   description:
-    "Contact Jyoshna Safety Nets for balcony safety nets, pigeon nets, and invisible grills installation in Visakhapatnam. Call now for free inspection and fast service.",
+    "Contact Jyoshna for invisible grills, safety nets, bird-control systems, sports nets, and ceiling cloth hangers across Bangalore and Visakhapatnam.",
 
   keywords: [
     "contact safety nets",
-    "safety nets Visakhapatnam contact",
+    "safety nets Bangalore contact",
     "balcony safety nets phone number",
     "pigeon nets near me contact",
     "invisible grills contact",
@@ -64,29 +64,30 @@ export default function ContactLayout({
     {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      name: "Jyoshna Safety Nets",
+      name: "Jyoshna Invisible Grills: Balcony Safety Nets, Pigeon Safety Nets & Invisible Grills for Balcony in Bangalore",
+      alternateName: "Jyoshna Invisible Grills",
       url: "https://jyoshnainvisiblegrills.com",
       logo: "https://jyoshnainvisiblegrills.com/jyoshna-invisible-grills-logo.webp",
       telephone: ["+918106420981", "+919392372421"],
-      email: "jyoshainvisiblegrills@gmail.com",
+      email: "jyoshnainvisiblegrills@gmail.com",
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Visakhapatnam",
-        addressRegion: "Andhra Pradesh",
+        streetAddress: "S 1st Rd, Duravani Nagar, Krishnarajapuram",
+        addressLocality: "Bengaluru",
+        addressRegion: "Karnataka",
+        postalCode: "560016",
         addressCountry: "IN",
       },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: 17.6868,
-        longitude: 83.2185,
-      },
-      openingHours: "Mo-Su 00:00-23:59",
-      priceRange: "20-500",
+      hasMap: "https://www.google.com/maps/search/?api=1&query=S%201st%20Rd%2C%20Duravani%20Nagar%2C%20Krishnarajapuram%2C%20Bengaluru%2C%20Karnataka%20560016",
+      areaServed: [
+        { "@type": "City", name: "Bangalore" },
+        { "@type": "City", name: "Visakhapatnam" },
+      ],
     },
     {
       "@context": "https://schema.org",
       "@type": "Organization",
-      name: "Jyoshna Safety Nets",
+      name: "Jyoshna Invisible Grills",
       contactPoint: [
         {
           "@type": "ContactPoint",
@@ -102,7 +103,7 @@ export default function ContactLayout({
       name: "Contact via WhatsApp",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://wa.me/918106420981",
+        urlTemplate: "https://wa.me/919392372421",
       },
     },
   ];
